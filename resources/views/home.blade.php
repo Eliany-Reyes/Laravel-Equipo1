@@ -22,7 +22,6 @@
        .header-bg, .card {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             border-radius: 1rem;
-            /* Gris pizarra semi-transparente */
             background-color: rgba(39, 133, 70, 0.62);
             backdrop-filter: blur(5px);
             border: 2px solid transparent;
@@ -30,7 +29,6 @@
 
        .card:hover {
             transform: translateY(-8px) scale(1.05);
-            /* Resplandor verde que complementa el fondo de bosque */
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 100, 0, 0.7); 
             border-color: rgba(5, 161, 5, 0.74);
         }

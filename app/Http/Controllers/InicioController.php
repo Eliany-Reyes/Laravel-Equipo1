@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; // <-- Asegúrate de que esta línea exista
+use Illuminate\Support\Facades\Hash; 
 use App\Models\User;
 
 class InicioController extends Controller
@@ -48,7 +48,7 @@ class InicioController extends Controller
     }
 
     /**
-     * Muestra la página principal (dashboard) del sistema.
+     * Muestra la página principal
      *
      * @return \Illuminate\View\View
      */
@@ -96,12 +96,12 @@ public function register(Request $request)
         'contrasena' => 'required|string|min:3|confirmed',
     ]);
 
-    // Crear el nuevo usuario (este es el bloque correcto)
+    // Crear el nuevo usuario 
     $user = User::create([
         'nombre_usuario' => $request->nombre_usuario,
         'correo_electronico' => $request->correo_electronico,
         'contrasena' => Hash::make($request->contrasena),
-        'contrasena_plana' => $request->contrasena, // <-- Asegúrate de que esta línea esté presente
+        'contrasena_plana' => $request->contrasena,
         'id_rol' => 1,
         'estado' => 'Inactivo',
         'fecha_registro' => now(),

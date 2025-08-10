@@ -35,7 +35,7 @@ class MantenimientoController extends Controller
                 $mantenimientos = [];
             }
         } catch (Exception $e) {
-            // Si la API está completamente desconectada, registra el error y usa un array vacío
+            // Si la API esta desconectada, registra el error y usa un array vacío
             Log::error('Excepción al obtener mantenimientos de la API externa: ' . $e->getMessage());
             $mantenimientos = [];
         }
@@ -76,7 +76,7 @@ class MantenimientoController extends Controller
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
-            // Devuelve a la página anterior con un mensaje de error genérico
+            // Devuelve a la página anterior con un mensaje de error 
             return back()->with('error', 'Hubo un error al crear el mantenimiento. Por favor, revisa los logs para más detalles.');
         }
 
@@ -92,8 +92,8 @@ class MantenimientoController extends Controller
     public function edit($id)
     {
         try {
-            // Se envía una solicitud POST al endpoint 'buscarporid' de tu backend
-            // El ID se envía en el cuerpo (body) de la solicitud, como tu backend lo espera.
+            // Se envía una solicitud POST al endpoint 'buscarporid' del backend
+            // El ID se envía en el cuerpo (body) de la solicitud
             $response = Http::post("http://localhost:3000/mantenimientos/buscarporid", ['cod_mantenimiento' => $id]);
 
             if ($response->successful() && $response->json()) {
