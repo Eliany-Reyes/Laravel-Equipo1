@@ -73,11 +73,12 @@
             <h2 class="text-2xl font-semibold">EVENTOS</h2>
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
-            <img src="{{ asset('visitas.png') }}" alt="Visitas" class="card-image w-48 h-48 mb-4">
-            <h2 class="text-2xl font-semibold">VISITAS</h2>
-        </a>
+        <a href="/visitas-inicio" class="card p-4 flex flex-col items-center justify-center text-center">
+  <img src="{{ asset('visitas.png') }}" alt="Visitas" class="card-image w-48 h-48 object-cover rounded-xl">
+  <h2 class="text-2xl font-semibold">VISITAS</h2>
+</a>
 
+     
         <a href="{{ route('mantenimientos.index_pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
             <img src="{{ asset('mantenimiento.png') }}" alt="Mantenimiento" class="card-image w-48 h-48 mb-4">
             <h2 class="text-2xl font-semibold">MANTENIMIENTO</h2>
