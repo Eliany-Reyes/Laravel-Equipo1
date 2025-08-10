@@ -38,7 +38,7 @@ use App\Http\Controllers\MantenimientoController;
 */
 
 // La ruta raíz ahora lleva al formulario de inicio de sesión
-Route::get('/', [AunteticarController::class, 'mostrarInicioFormulario'])->name('inicio');
+//Route::get('/', [AunteticarController::class, 'mostrarInicioFormulario'])->name('inicio');
 
 /*---------------------------- MODULO PERSONAS --------------------------------- */
 Route::get('/personas', [personaController::class, 'GetPersonas']);
