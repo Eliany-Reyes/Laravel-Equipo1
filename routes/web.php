@@ -20,6 +20,7 @@ use App\Http\Controllers\backupController;
 use App\Http\Controllers\rolController;
 use App\Http\Controllers\pantallaController;
 use App\Http\Controllers\permisoController;
+use App\Http\Controllers\VisitasController;
 
 /* ------------------------------------------------------------------------------*/
 
@@ -100,4 +101,16 @@ Route::get('/assign/{user}', [InicioController::class, 'showAssignForm'])->name(
 
 // Ruta que procesa el formulario de asignación y actualiza el usuario
 Route::put('/update-cod-persona/{user}', [InicioController::class, 'updateCodPersona'])->name('update.cod_persona');
+
+//modulo visitas
+// módulo visitas
+Route::get('/visitas', [VisitasController::class, 'GetVisitas'])->name('visitas.index');
+Route::post('/visitas/guardar', [VisitasController::class, 'StoreVisita'])->name('visitas.store');
+Route::put('/visitas/{cod_visita}/actualizar', [VisitasController::class, 'UpdateVisita'])->name('visitas.update');
+Route::delete('/visitas/{cod_visita}', [VisitasController::class, 'destroy'])->name('visitas.destroy');
+
+// menú del módulo
+Route::view('/visitas-inicio', 'visitas.inicio')->name('visitas.inicio');
+
+
 
