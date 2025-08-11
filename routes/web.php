@@ -29,6 +29,7 @@ use App\Http\Controllers\MantenimientoController;
 
 /*---------------------------- MODULO BOSQUES --------------------------------- */
 use App\Http\Controllers\BosqueController;
+use App\Http\Controllers\ActividadesController;
 
 /* ------------------------------------------------------------------------------*/
 
@@ -119,6 +120,30 @@ Route::post('/bosques', [BosqueController::class, 'postBosque'])->name('bosques.
 Route::get('/bosques/create', [BosqueController::class, 'create'])->name('bosques.create');
 Route::get('/bosques/{cod_bosque}/edit', [BosqueController::class, 'edit'])->name('bosques.edit');
 Route::put('/bosques/{cod_bosque}', [BosqueController::class, 'updateBosque'])->name('bosques.update');
+
+
+
+/*---------------------------- MODULO ACTIVIDADES --------------------------------- */
+
+
+// Desde el módulo Bosques hacia la pantalla Bosques
+Route::get('/actividades/pantalla', function () {
+    return view('pantalla-actividades'); // tu vista raíz /views
+})->name('actividades.pantalla');
+
+// Listado de todas las actividades
+// **SE CORRIGE EL NOMBRE DEL MÉTODO DE getActividades A index**
+Route::get('/actividades', [ActividadesController::class, 'index'])->name('actividades.index');
+// Muestra el formulario de creación
+Route::get('/actividades/create', [ActividadesController::class, 'create'])->name('actividades.create');
+// Procesa la creación de una nueva actividad
+Route::post('/actividades', [ActividadesController::class, 'store'])->name('actividades.store');
+// Muestra el formulario para editar una actividad específica
+Route::get('/actividades/{cod_actividad}/edit', [ActividadesController::class, 'edit'])->name('actividades.edit');
+// Procesa la actualización de una actividad específica
+Route::put('/actividades/{cod_actividad}', [ActividadesController::class, 'update'])->name('actividades.update');
+// Elimina una actividad específica
+Route::delete('/actividades/{cod_actividad}', [ActividadesController::class, 'destroy'])->name('actividades.destroy');
 
 //--------------------------------------------------------------------------------------------------------------//
 
