@@ -113,6 +113,17 @@
             </div>
         </div>
     </div>
-
+  <!-- Pantallas -->
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-header">Pantallas</div>
+            <div class="card-body">
+                <i class="fas fa-sign-in-alt fa-3x mb-3"></i>
+                <p>Historial y gestión de accesos al sistema.</p>
+                {{-- Ajusta este route si tu índice de pantallas se llama diferente --}}
+                {{-- <a href="{{ route('pantallas.index') }}" class="btn btn-primary">Abrir</a> --}}
+            </div>
+        </div>
+    </div>
 </div>
 @stop
