@@ -28,6 +28,11 @@ use App\Http\Controllers\ReportesController;
 /*---------------------------- MODULO MANTENIMIENTO --------------------------------- */
 use App\Http\Controllers\MantenimientoController;
 
+/*---------------------------- MODULO BOSQUES --------------------------------- */
+use App\Http\Controllers\BosqueController;
+
+/* ------------------------------------------------------------------------------*/
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,6 +103,23 @@ Route::post('/logout', [InicioController::class, 'logout'])->name('logout');
 Route::get('/assign/{user}', [InicioController::class, 'showAssignForm'])->name('assign.cod_persona');
 // Ruta que procesa el formulario de asignación y actualiza el usuario
 Route::put('/update-cod-persona/{user}', [InicioController::class, 'updateCodPersona'])->name('update.cod_persona');
+
+/*---------------------------- MODULO BOSQUES --------------------------------- */
+// Desde Home hacia el módulo Bosques
+Route::get('/bosques/menu', function () {
+    return view('bosques.modulos_bosques'); // tu vista dentro de /views/bosques
+})->name('bosques.menu');
+
+// Desde el módulo Bosques hacia la pantalla Bosques
+Route::get('/bosques/pantalla', function () {
+    return view('pantalla-bosques'); // tu vista raíz /views
+})->name('bosques.pantalla');
+
+Route::get('/bosques', [BosqueController::class, 'getBosques'])->name('bosques.index');
+Route::post('/bosques', [BosqueController::class, 'postBosque'])->name('bosques.store');
+Route::get('/bosques/create', [BosqueController::class, 'create'])->name('bosques.create');
+Route::get('/bosques/{cod_bosque}/edit', [BosqueController::class, 'edit'])->name('bosques.edit');
+Route::put('/bosques/{cod_bosque}', [BosqueController::class, 'updateBosque'])->name('bosques.update');
 
 //--------------------------------------------------------------------------------------------------------------//
 
