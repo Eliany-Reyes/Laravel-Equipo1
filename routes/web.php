@@ -21,6 +21,7 @@ use App\Http\Controllers\rolController;
 use App\Http\Controllers\pantallaController;
 use App\Http\Controllers\permisoController;
 use App\Http\Controllers\VisitasController;
+use App\Http\Controllers\ReportesController;
 
 /* ------------------------------------------------------------------------------*/
 
@@ -187,3 +188,18 @@ Route::delete('/empleados/{cod_empleado}', [EmpleadoController::class, 'destroy'
 Route::get('/logins', [LoginController::class, 'index'])->name('logins.index');
 Route::post('/logins/guardar', [LoginController::class, 'store'])->name('logins.store');
 Route::delete('/logins/{cod_Login}', [LoginController::class, 'destroy'])->name('logins.destroy');
+
+
+// Rutas para el módulo de Reportes
+Route::get('/reportes', [ReportesController::class, 'index'])->name('reportes.index');
+
+// Ruta para devolver JSON con datos
+Route::get('/reportes/json', [ReportesController::class, 'obtenerReportesJson'])->name('reportes.json');
+
+Route::post('/reportes', [ReportesController::class, 'store'])->name('reportes.store');
+Route::put('/reportes', [ReportesController::class, 'update'])->name('reportes.update');
+Route::delete('/reportes/{id}', [ReportesController::class, 'destroy'])->name('reportes.destroy');
+
+Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
+// Módulo Reportes (menú)
+Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
