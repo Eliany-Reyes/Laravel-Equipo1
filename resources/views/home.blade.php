@@ -63,9 +63,10 @@
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
-            <img src="{{ asset('personas.png') }}" alt="Personas" class="card-image w-48 h-48 mb-4">
-            <h2 class="text-2xl font-semibold">PERSONAS</h2>
+          <a href="/personas-inicio" class="card p-4 flex flex-col items-center justify-center text-center">
+            <img src="{{ asset('personas.png') }}" alt="Personas" class="card-image w-48 h-48 object-cover rounded-xl">
+             <h2 class="text-2xl font-semibold">PERSONAS</h2>
+                  
         </a>
 
         <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
