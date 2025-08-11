@@ -14,6 +14,8 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Listado de Mantenimientos</h3>
+
+                     <a href="{{ route('mantenimientos.index_pantalla') }}" class="btn btn-primary float-right">Regresar</a>
                     
                     <a href="{{ route('mantenimientos.create') }}" class="btn btn-success mt-3">Crear Nuevo Mantenimiento</a>
                 </div>
