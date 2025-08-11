@@ -58,7 +58,7 @@
                     
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Guardar Actividad</button>
-                        <a href="{{ route('actividades.index') }}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{{ route('actividades.pantalla') }}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>

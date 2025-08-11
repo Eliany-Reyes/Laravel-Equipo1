@@ -134,7 +134,7 @@
             </a>
 
             <!-- Opción para Módulo de Flora y Fauna -->
-            <a href="#" class="option">
+           <a href="{{ route('bosques.florafauna') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
                     <i class="fas fa-paw"></i>
                 </div>

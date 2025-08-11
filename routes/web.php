@@ -31,6 +31,8 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\BosqueController;
 use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\AccesoController;
+use App\Http\Controllers\FloraFaunaController;
+
 
 /* ------------------------------------------------------------------------------*/
 
@@ -124,6 +126,9 @@ Route::put('/bosques/{cod_bosque}', [BosqueController::class, 'updateBosque'])->
 
 
 
+// Ruta agregada para el módulo de Flora y Fauna
+Route::get('/bosques/flora-fauna', [FloraFaunaController::class, 'GetFloraFauna'])->name('bosques.florafauna');
+
 /*---------------------------- MODULO ACTIVIDADES --------------------------------- */
 
 
@@ -172,6 +177,9 @@ Route::put('/acceso/{cod_acceso}', [AccesoController::class, 'updateAcceso'])->n
 
 // Elimina un acceso
 Route::delete('/acceso/{cod_acceso}', [AccesoController::class, 'destroyAcceso'])->name('acceso.destroy');
+
+/*---------------------------- MODULO FLORA Y FAUNA --------------------------------- */
+Route::get('/bosques', [BosqueController::class, 'getBosques'])->name('bosques.index');
 
 
 //--------------------------------------------------------------------------------------------------------------//
@@ -263,3 +271,5 @@ Route::delete('/empleados/{cod_empleado}', [EmpleadoController::class, 'destroy'
 Route::get('/logins', [LoginController::class, 'index'])->name('logins.index');
 Route::post('/logins/guardar', [LoginController::class, 'store'])->name('logins.store');
 Route::delete('/logins/{cod_Login}', [LoginController::class, 'destroy'])->name('logins.destroy');
+
+
