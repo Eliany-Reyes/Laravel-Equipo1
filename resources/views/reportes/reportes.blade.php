@@ -1,165 +1,232 @@
-<!-- resources/views/reportes.blade.php -->
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Módulo de Reportes</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Listado de Reportes</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #e0f7fa;
+            color: #00796b;
+        }
+        .error {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        form {
+            margin-top: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        /* Estilo del botón regresar */
+        .btn-secondary {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
+<body>
+    <div class="container">
 
-
-<body class="bg-light">
-
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="{{ url('/home') }}" class="btn btn-secondary">
-        <i class="fas fa-home"></i> Regresar al Home
-    </a>
-</div>
-    <h1 class="mb-4">📋 Módulo de Reportes</h1>
-
-    {{-- FORMULARIO PARA CREAR / ACTUALIZAR --}}
-    <div class="card mb-4">
-        <div class="card-header">Agregar / Editar Reporte</div>
-        <div class="card-body">
-            <form id="formReporte">
-                @csrf
-                <input type="hidden" id="id" name="id">
-
-                <div class="mb-3">
-                    <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="button" id="cancelarEdicion" class="btn btn-secondary d-none">Cancelar</button>
-            </form>
+        <!-- Botón Regresar al Home -->
+        <div style="text-align:right; margin-bottom:15px;">
+            <a href="{{ url('/home') }}" class="btn-secondary">
+                <i class="fas fa-home"></i> Regresar al Home
+            </a>
         </div>
-    </div>
 
-    {{-- LISTA DE REPORTES --}}
-    <div class="card">
-        <div class="card-header">Lista de Reportes</div>
-        <div class="card-body">
-            <table class="table table-bordered" id="tablaReportes">
+        <h1>Lista de Reportes</h1>
+
+        @if(session('success'))
+            <div class="message">{{ session('success') }}</div>
+        @elseif(session('error'))
+            <div class="message error">{{ session('error') }}</div>
+        @elseif(isset($message))
+            <div class="message">{{ $message }}</div>
+        @endif
+
+        @if(count($reportes) > 0)
+            <table id="tabla-reportes">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Título</th>
+                        <th>Tipo</th>
+                        <th>Generado Por</th>
                         <th>Descripción</th>
-                        <th>Acciones</th>
+                        <th>Código Gráfico</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Aquí se cargan dinámicamente los datos --}}
+                    @foreach($reportes as $reporte)
+                        <tr 
+                            data-id="{{ $reporte['cod_reporte'] ?? '' }}"
+                            data-titulo="{{ $reporte['titulo'] ?? '' }}"
+                            data-tipo="{{ $reporte['tipo_reporte'] ?? '' }}"
+                            data-generado="{{ $reporte['generado_por'] ?? '' }}"
+                            data-descripcion="{{ $reporte['descripcion'] ?? '' }}"
+                            data-codgrafico="{{ $reporte['cod_grafico'] ?? '' }}"
+                        >
+                            <td>{{ $reporte['cod_reporte'] ?? 'N/A' }}</td>
+                            <td>{{ $reporte['titulo'] ?? 'N/A' }}</td>
+                            <td>{{ $reporte['tipo_reporte'] ?? 'N/A' }}</td>
+                            <td>{{ $reporte['generado_por'] ?? 'N/A' }}</td>
+                            <td>{{ $reporte['descripcion'] ?? 'N/A' }}</td>
+                            <td>{{ $reporte['cod_grafico'] ?? 'N/A' }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
-        </div>
+            <p style="text-align:center; font-style: italic; margin-top:10px;">
+                Haz clic en una fila para editar ese reporte.
+            </p>
+        @else
+            <p>No hay reportes disponibles.</p>
+        @endif
+
+        <h2>Nuevo Reporte</h2>
+        <form method="POST" action="{{ route('reportes.store') }}">
+            @csrf
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" required>
+
+            <label for="tipo_reporte">Tipo de Reporte:</label>
+            <input type="text" name="tipo_reporte" required>
+
+            <label for="generado_por">Generado por:</label>
+            <input type="text" name="generado_por" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea name="descripcion"></textarea>
+
+            <label for="cod_grafico">Código Gráfico:</label>
+            <input type="number" name="cod_grafico" required>
+
+            <button type="submit">Guardar Reporte</button>
+        </form>
+
+        <h2>Editar Reporte</h2>
+        <form method="POST" id="form-editar" action="{{ route('reportes.update') }}">
+            @csrf
+            @method('PUT')
+
+            <!-- Hidden input para enviar el cod_reporte real -->
+            <input type="hidden" name="cod_reporte" id="edit-cod_reporte">
+
+            <!-- Campo visible y editable para el código -->
+            <label for="edit-cod_reporte_visible">Código de Reporte:</label>
+            <input type="text" id="edit-cod_reporte_visible" style="background-color:#fff; cursor:text;">
+
+            <label for="edit-titulo">Título:</label>
+            <input type="text" name="titulo" id="edit-titulo" required>
+
+            <label for="edit-tipo_reporte">Tipo de Reporte:</label>
+            <input type="text" name="tipo_reporte" id="edit-tipo_reporte" required>
+
+            <label for="edit-generado_por">Generado por:</label>
+            <input type="text" name="generado_por" id="edit-generado_por" required>
+
+            <label for="edit-descripcion">Descripción:</label>
+            <textarea name="descripcion" id="edit-descripcion"></textarea>
+
+            <label for="edit-cod_grafico">Código Gráfico:</label>
+            <input type="number" name="cod_grafico" id="edit-cod_grafico" required>
+
+            <button type="submit">Actualizar Reporte</button>
+        </form>
     </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const tabla = document.querySelector("#tablaReportes tbody");
-    const form = document.querySelector("#formReporte");
-    const cancelarBtn = document.querySelector("#cancelarEdicion");
+    <script>
+        // Capturar click en fila y cargar formulario de editar
+        document.querySelectorAll('#tabla-reportes tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                const id = row.getAttribute('data-id');
+                const titulo = row.getAttribute('data-titulo');
+                const tipo = row.getAttribute('data-tipo');
+                const generado = row.getAttribute('data-generado');
+                const descripcion = row.getAttribute('data-descripcion');
+                const codgrafico = row.getAttribute('data-codgrafico');
 
-    let editando = false;
-    let idEditar = null;
+                document.getElementById('edit-cod_reporte').value = id;
+                document.getElementById('edit-cod_reporte_visible').value = id;
+                document.getElementById('edit-titulo').value = titulo;
+                document.getElementById('edit-tipo_reporte').value = tipo;
+                document.getElementById('edit-generado_por').value = generado;
+                document.getElementById('edit-descripcion').value = descripcion;
+                document.getElementById('edit-cod_grafico').value = codgrafico;
 
-    // Cargar reportes desde la ruta JSON
-    function cargarReportes() {
-        fetch("{{ route('reportes.json') }}")
-            .then(res => res.json())
-            .then(data => {
-                tabla.innerHTML = "";
-                data.forEach(r => {
-                    tabla.innerHTML += `
-                        <tr>
-                            <td>${r.id}</td>
-                            <td>${r.titulo}</td>
-                            <td>${r.descripcion}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="editarReporte(${r.id}, '${r.titulo}', '${r.descripcion}')">Editar</button>
-                                <button class="btn btn-danger btn-sm" onclick="eliminarReporte(${r.id})">Eliminar</button>
-                            </td>
-                        </tr>
-                    `;
-                });
+                // La acción del formulario es fija, no se usa id en URL
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             });
-    }
+        });
 
-    // Guardar o actualizar
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const titulo = document.querySelector("#titulo").value;
-        const descripcion = document.querySelector("#descripcion").value;
-
-        if (editando) {
-            fetch("{{ route('reportes.update') }}", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
-                },
-                body: JSON.stringify({ id: idEditar, titulo, descripcion })
-            }).then(() => {
-                cargarReportes();
-                form.reset();
-                editando = false;
-                cancelarBtn.classList.add("d-none");
-            });
-        } else {
-            fetch("{{ route('reportes.store') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
-                },
-                body: JSON.stringify({ titulo, descripcion })
-            }).then(() => {
-                cargarReportes();
-                form.reset();
-            });
-        }
-    });
-
-    // Editar
-    window.editarReporte = function(id, titulo, descripcion) {
-        document.querySelector("#titulo").value = titulo;
-        document.querySelector("#descripcion").value = descripcion;
-        idEditar = id;
-        editando = true;
-        cancelarBtn.classList.remove("d-none");
-    }
-
-    // Cancelar edición
-    cancelarBtn.addEventListener("click", function() {
-        form.reset();
-        editando = false;
-        cancelarBtn.classList.add("d-none");
-    });
-
-    // Eliminar
-    window.eliminarReporte = function(id) {
-        if (confirm("¿Seguro que quieres eliminar este reporte?")) {
-            fetch(`/reportes/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
-                }
-            }).then(() => cargarReportes());
-        }
-    }
-
-    cargarReportes();
-});
-</script>
-
+        // Sincronizar el campo visible con el hidden para enviar cod_reporte correctamente
+        document.getElementById('edit-cod_reporte_visible').addEventListener('input', function() {
+            document.getElementById('edit-cod_reporte').value = this.value;
+        });
+    </script>
 </body>
 </html>

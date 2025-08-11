@@ -18,7 +18,7 @@ use App\Http\Controllers\direccionController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\backupController;
 use App\Http\Controllers\rolController;
-use App\Http\Controllers\pantallaController;
+use App\Http\Controllers\personas\PantallasController;
 use App\Http\Controllers\permisoController;
 use App\Http\Controllers\VisitasController;
 use App\Http\Controllers\ReportesController;
@@ -191,15 +191,19 @@ Route::delete('/logins/{cod_Login}', [LoginController::class, 'destroy'])->name(
 
 
 // Rutas para el módulo de Reportes
-Route::get('/reportes', [ReportesController::class, 'index'])->name('reportes.index');
-
-// Ruta para devolver JSON con datos
-Route::get('/reportes/json', [ReportesController::class, 'obtenerReportesJson'])->name('reportes.json');
-
-Route::post('/reportes', [ReportesController::class, 'store'])->name('reportes.store');
-Route::put('/reportes', [ReportesController::class, 'update'])->name('reportes.update');
-Route::delete('/reportes/{id}', [ReportesController::class, 'destroy'])->name('reportes.destroy');
+Route::get('/Reportes', [ReportesController::class, 'index'])->name('reportes.index');
+Route::post('/Reportes', [ReportesController::class, 'store'])->name('reportes.store');
+Route::put('/Reportes', [ReportesController::class, 'update'])->name('reportes.update');
 
 Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
 // Módulo Reportes (menú)
 Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
+
+//módulo Pantallas
+Route::get('/pantallas', [PantallasController::class, 'index'])->name('pantallas.index');
+Route::post('/pantallas', [PantallasController::class, 'store'])->name('pantallas.store');
+Route::put('/pantallas/{cod_pantalla}/actualizar', [PantallasController::class, 'update'])->name('pantallas.update');
+Route::delete('/pantallas/{cod_pantalla}', [PantallasController::class, 'destroy'])->name('pantallas.destroy');
+
+
+

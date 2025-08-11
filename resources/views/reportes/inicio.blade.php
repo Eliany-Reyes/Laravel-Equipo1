@@ -31,7 +31,7 @@
         }
         .back-button {
             padding: 0.5rem 1rem;
-            background-color: #2563eb;
+            background-color: #16a34a;
             color: #ffffff;
             border-radius: 9999px;
             font-weight: 600;
@@ -39,17 +39,17 @@
             transition: background-color 0.2s;
         }
         .back-button:hover {
-            background-color: #1d4ed8;
+              background-color: #15803d;
         }
         .title {
-            font-size: 1.5rem;
+         font-size: 1.5rem;
             font-weight: 700;
             color: #1f2937;
             text-align: center;
             flex-grow: 1;
         }
         .image-box {
-            background-color: #93c5fd;
+             background-color: #93c5fd;
             height: 200px;
             border-radius: 12px;
             display: flex;
@@ -81,15 +81,15 @@
             transform: translateY(-5px);
         }
         .option-icon {
-            width: 80px;
+           width: 80px;
             height: 80px;
             border-radius: 9999px;
-            background-color: #bfdbfe;
+            background-color: #86efac;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            color: #1d4ed8;
+            color: #15803d;
             margin-bottom: 0.5rem;
         }
         .option-text {
@@ -116,7 +116,7 @@
         </div>
 
         <div class="image-box">
-            <img src="{{ asset('reportes.png') }}" alt="Imagen Reportes">
+            <img src="{{ asset('localizar.png') }}" alt="Imagen Reportes">
         </div>
 
         <h2 class="text-xl font-semibold text-center mb-6">OPCIONES DISPONIBLES</h2>

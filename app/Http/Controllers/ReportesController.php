@@ -8,27 +8,31 @@ use Illuminate\Support\Facades\Log;
 
 class ReportesController extends Controller
 {
-    // Devuelve la vista reportes.blade.php sin datos (la tabla se llena por JS)
     public function index()
-    {
-        return view('reportes.reportes');
-    }
-
-    // Nueva función para devolver los datos JSON de los reportes
-    public function obtenerReportesJson()
     {
         $apiUrl = "http://localhost:3000/Reportes";
 
         try {
             $response = Http::get($apiUrl);
+
             if ($response->successful()) {
-                return response()->json($response->json());
+                $reportes = $response->json();
+                return view('reportes.reportes', [
+                    'reportes' => $reportes,
+                    'message' => 'Datos cargados correctamente.',
+                ]);
             } else {
-                return response()->json([], 500);
+                return view('reportes.reportes', [
+                    'reportes' => [],
+                    'message' => 'Error al obtener reportes. Estado: ' . $response->status()
+                ]);
             }
         } catch (\Exception $e) {
             Log::error('Error al conectar con la API: ' . $e->getMessage());
-            return response()->json([], 500);
+            return view('reportes', [
+                'reportes' => [],
+                'message' => 'Excepción: ' . $e->getMessage()
+            ]);
         }
     }
 
@@ -38,61 +42,48 @@ class ReportesController extends Controller
 
         $validated = $request->validate([
             'titulo' => 'required|string|max:100',
+            'tipo_reporte' => 'required|string|max:50',
+            'generado_por' => 'required|string|max:50',
             'descripcion' => 'nullable|string',
-            // Si usas otros campos en el formulario agrégalos acá
+            'cod_grafico' => 'required|integer',
         ]);
 
         try {
             $response = Http::post($apiUrl, $validated);
 
             if ($response->successful()) {
-                return response()->json(['success' => true]);
+                return redirect()->route('reportes.index')->with('success', 'Reporte insertado correctamente.');
             } else {
-                return response()->json(['error' => $response->body()], 500);
+                return redirect()->route('reportes.index')->with('error', 'Error al insertar: ' . $response->body());
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return redirect()->route('reportes.index')->with('error', 'Excepción: ' . $e->getMessage());
         }
     }
 
     public function update(Request $request)
-    {
-        $id = $request->input('id');  // Cambié 'cod_reporte' por 'id' para coincidir con tu JS
-        $apiUrl = "http://localhost:3000/Reportes/{$id}";
+{
+    $id = $request->input('cod_reporte');
+    $apiUrl = "http://localhost:3000/Reportes/{$id}";
 
-        $validated = $request->validate([
-            'titulo' => 'required|string|max:100',
-            'descripcion' => 'nullable|string',
-        ]);
+    $validated = $request->validate([
+        'titulo' => 'required|string|max:100',
+        'tipo_reporte' => 'required|string|max:50',
+        'generado_por' => 'required|string|max:50',
+        'descripcion' => 'nullable|string',
+        'cod_grafico' => 'required|integer',
+    ]);
 
-        try {
-            $response = Http::put($apiUrl, $validated);
+    try {
+        $response = Http::put($apiUrl, $validated);
 
-            if ($response->successful()) {
-                return response()->json(['success' => true]);
-            } else {
-                return response()->json(['error' => $response->body()], 500);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        if ($response->successful()) {
+            return redirect()->route('reportes.index')->with('success', 'Reporte actualizado correctamente.');
+        } else {
+            return redirect()->route('reportes.index')->with('error', 'Error al actualizar: ' . $response->body());
         }
+    } catch (\Exception $e) {
+        return redirect()->route('reportes.index')->with('error', 'Excepción: ' . $e->getMessage());
     }
-
-    // Método para eliminar reporte
-    public function destroy($id)
-    {
-        $apiUrl = "http://localhost:3000/Reportes/{$id}";
-
-        try {
-            $response = Http::delete($apiUrl);
-
-            if ($response->successful()) {
-                return response()->json(['success' => true]);
-            } else {
-                return response()->json(['error' => 'Error al eliminar'], 500);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
+}
 }
