@@ -114,7 +114,7 @@
     <div class="container">
         <div class="header">
             <!-- Botón de regresar que te lleva a la página principal -->
-            <a href="{{ route('home') }}" class="back-button">Regresar</a>
+            <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
             <h1 class="title">MÓDULOS DE GESTIÓN DE BOSQUES</h1>
             <!-- Espacio para mantener el centrado del título -->
             <div style="width: 100px;"></div>
@@ -140,7 +140,7 @@
             </a>
 
             <!-- Opción para Insertar Bosque -->
-            <a href="{{ route('bosques.index') }}" class="option">
+            <a href="{{ route('bosques.create') }}" class="option">
                 <div class="option-icon">
                     <i class="fas fa-plus"></i>
                 </div>

@@ -126,7 +126,7 @@
             </a>
 
             <!-- Opción para Módulo de Acceso -->
-            <a href="#" class="option">
+         <a href="{{ route('acceso.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
                     <i class="fas fa-door-open"></i>
                 </div>

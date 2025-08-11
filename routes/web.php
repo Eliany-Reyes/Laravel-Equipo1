@@ -30,6 +30,7 @@ use App\Http\Controllers\MantenimientoController;
 /*---------------------------- MODULO BOSQUES --------------------------------- */
 use App\Http\Controllers\BosqueController;
 use App\Http\Controllers\ActividadesController;
+use App\Http\Controllers\AccesoController;
 
 /* ------------------------------------------------------------------------------*/
 
@@ -144,6 +145,34 @@ Route::get('/actividades/{cod_actividad}/edit', [ActividadesController::class, '
 Route::put('/actividades/{cod_actividad}', [ActividadesController::class, 'update'])->name('actividades.update');
 // Elimina una actividad específica
 Route::delete('/actividades/{cod_actividad}', [ActividadesController::class, 'destroy'])->name('actividades.destroy');
+
+/*---------------------------- MODULO ACCESOS --------------------------------- */
+
+
+// Desde el módulo Bosques hacia la pantalla Bosques
+Route::get('/acceso/pantalla', function () {
+    return view('pantalla-acceso'); // tu vista raíz /views
+})->name('acceso.pantalla');
+
+
+// Muestra el listado de accesos
+Route::get('/acceso', [AccesoController::class, 'getAccesos'])->name('acceso.index');
+
+// Muestra el formulario para crear un nuevo acceso
+Route::get('/acceso/create', [AccesoController::class, 'createAcceso'])->name('acceso.create');
+
+// Guarda el nuevo acceso
+Route::post('/acceso', [AccesoController::class, 'storeAcceso'])->name('acceso.store');
+
+// Muestra el formulario para editar un acceso existente
+Route::get('/acceso/{cod_acceso}/edit', [AccesoController::class, 'editAcceso'])->name('acceso.edit');
+
+// Actualiza un acceso existente
+Route::put('/acceso/{cod_acceso}', [AccesoController::class, 'updateAcceso'])->name('acceso.update');
+
+// Elimina un acceso
+Route::delete('/acceso/{cod_acceso}', [AccesoController::class, 'destroyAcceso'])->name('acceso.destroy');
+
 
 //--------------------------------------------------------------------------------------------------------------//
 
