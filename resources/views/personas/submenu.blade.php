@@ -113,17 +113,60 @@
             </div>
         </div>
     </div>
-  <!-- Pantallas -->
-    <div class="col-md-4">
-        <div class="card text-center">
-            <div class="card-header">Pantallas</div>
-            <div class="card-body">
-                <i class="fas fa-sign-in-alt fa-3x mb-3"></i>
-                <p>Historial y gestión de accesos al sistema.</p>
-                {{-- Ajusta este route si tu índice de pantallas se llama diferente --}}
-                {{-- <a href="{{ route('pantallas.index') }}" class="btn btn-primary">Abrir</a> --}}
-            </div>
+<div class="col-md-4">
+    <div class="card text-center">
+        <div class="card-header">Pantallas</div>
+        <div class="card-body">
+            <i class="fas fa-desktop fa-3x mb-3"></i>
+            <p>Historial y gestión de accesos al sistema.</p>
+            {{-- Ajusta este route si tu índice de pantallas se llama diferente --}}
+            <a href="{{ route('pantallas.index') }}" class="btn btn-primary">Abrir</a>
         </div>
     </div>
+</div>
+<div class="col-md-4">
+    <div class="card text-center">
+        <div class="card-header">Roles</div>
+        <div class="card-body">
+            <i class="fas fa-user-tag fa-3x mb-3"></i>
+            <p>Gestión de roles y niveles de acceso del sistema.</p>
+            <a href="{{ route('roles.index') }}" class="btn btn-primary">Abrir</a>
+        </div>
+    </div>
+</div>
+<div class="row mt-4"> {{-- Nueva fila para el último módulo --}}
+    
+</div>
+<div class="col-md-4">
+    <div class="card text-center">
+        <div class="card-header">Permisos</div>
+        <div class="card-body">
+            <i class="fas fa-lock fa-3x mb-3"></i>
+            <p>Configuración de permisos de usuario por pantalla.</p>
+            <a href="{{ route('permisos.index') }}" class="btn btn-primary">Abrir</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="card text-center">
+        <div class="card-header">Usuarios</div>
+        <div class="card-body">
+            <i class="fas fa-user fa-3x mb-3"></i>
+            <p>Gestión y administración de usuarios del sistema.</p>
+            <a href="{{ route('usuarios.index') }}" class="btn btn-primary">Abrir</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="card text-center">
+        <div class="card-header">Teléfonos</div>
+        <div class="card-body">
+            <i class="fas fa-phone fa-3x mb-3"></i>
+            <p>Gestión de información de contacto telefónico.</p>
+            <a href="{{ route('telefonos.index') }}" class="btn btn-primary">Abrir</a>
+        </div>
+    </div>
 </div>
 @stop

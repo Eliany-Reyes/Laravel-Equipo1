@@ -8,18 +8,18 @@ use App\Http\Controllers\InicioController;
 
 /*---------------------------- MODULO PERSONAS --------------------------------- */
 use App\Http\Controllers\personaController;
-use App\Http\Controllers\usuarioController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\clienteController;
 use App\Http\Controllers\empleadoController;
 use App\Http\Controllers\empleadoRolController;
 use App\Http\Controllers\correoController;
-use App\Http\Controllers\telefonoController;
+use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\direccionController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\backupController;
-use App\Http\Controllers\rolController;
-use App\Http\Controllers\personas\PantallasController;
-use App\Http\Controllers\permisoController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\PantallasController;
+use App\Http\Controllers\permisocontroller;
 use App\Http\Controllers\VisitasController;
 use App\Http\Controllers\ReportesController;
 
@@ -30,6 +30,10 @@ use App\Http\Controllers\MantenimientoController;
 
 /*---------------------------- MODULO BOSQUES --------------------------------- */
 use App\Http\Controllers\BosqueController;
+use App\Http\Controllers\ActividadesController;
+use App\Http\Controllers\AccesoController;
+use App\Http\Controllers\FloraFaunaController;
+
 
 /* ------------------------------------------------------------------------------*/
 
@@ -121,6 +125,64 @@ Route::get('/bosques/create', [BosqueController::class, 'create'])->name('bosque
 Route::get('/bosques/{cod_bosque}/edit', [BosqueController::class, 'edit'])->name('bosques.edit');
 Route::put('/bosques/{cod_bosque}', [BosqueController::class, 'updateBosque'])->name('bosques.update');
 
+
+
+// Ruta agregada para el módulo de Flora y Fauna
+Route::get('/bosques/flora-fauna', [FloraFaunaController::class, 'GetFloraFauna'])->name('bosques.florafauna');
+
+/*---------------------------- MODULO ACTIVIDADES --------------------------------- */
+
+
+// Desde el módulo Bosques hacia la pantalla Bosques
+Route::get('/actividades/pantalla', function () {
+    return view('pantalla-actividades'); // tu vista raíz /views
+})->name('actividades.pantalla');
+
+// Listado de todas las actividades
+// **SE CORRIGE EL NOMBRE DEL MÉTODO DE getActividades A index**
+Route::get('/actividades', [ActividadesController::class, 'index'])->name('actividades.index');
+// Muestra el formulario de creación
+Route::get('/actividades/create', [ActividadesController::class, 'create'])->name('actividades.create');
+// Procesa la creación de una nueva actividad
+Route::post('/actividades', [ActividadesController::class, 'store'])->name('actividades.store');
+// Muestra el formulario para editar una actividad específica
+Route::get('/actividades/{cod_actividad}/edit', [ActividadesController::class, 'edit'])->name('actividades.edit');
+// Procesa la actualización de una actividad específica
+Route::put('/actividades/{cod_actividad}', [ActividadesController::class, 'update'])->name('actividades.update');
+// Elimina una actividad específica
+Route::delete('/actividades/{cod_actividad}', [ActividadesController::class, 'destroy'])->name('actividades.destroy');
+
+/*---------------------------- MODULO ACCESOS --------------------------------- */
+
+
+// Desde el módulo Bosques hacia la pantalla Bosques
+Route::get('/acceso/pantalla', function () {
+    return view('pantalla-acceso'); // tu vista raíz /views
+})->name('acceso.pantalla');
+
+
+// Muestra el listado de accesos
+Route::get('/acceso', [AccesoController::class, 'getAccesos'])->name('acceso.index');
+
+// Muestra el formulario para crear un nuevo acceso
+Route::get('/acceso/create', [AccesoController::class, 'createAcceso'])->name('acceso.create');
+
+// Guarda el nuevo acceso
+Route::post('/acceso', [AccesoController::class, 'storeAcceso'])->name('acceso.store');
+
+// Muestra el formulario para editar un acceso existente
+Route::get('/acceso/{cod_acceso}/edit', [AccesoController::class, 'editAcceso'])->name('acceso.edit');
+
+// Actualiza un acceso existente
+Route::put('/acceso/{cod_acceso}', [AccesoController::class, 'updateAcceso'])->name('acceso.update');
+
+// Elimina un acceso
+Route::delete('/acceso/{cod_acceso}', [AccesoController::class, 'destroyAcceso'])->name('acceso.destroy');
+
+/*---------------------------- MODULO FLORA Y FAUNA --------------------------------- */
+Route::get('/bosques', [BosqueController::class, 'getBosques'])->name('bosques.index');
+
+
 //--------------------------------------------------------------------------------------------------------------//
 
 // módulo visitas
@@ -211,7 +273,6 @@ Route::get('/logins', [LoginController::class, 'index'])->name('logins.index');
 Route::post('/logins/guardar', [LoginController::class, 'store'])->name('logins.store');
 Route::delete('/logins/{cod_Login}', [LoginController::class, 'destroy'])->name('logins.destroy');
 
-
 // Rutas para el módulo de Reportes
 Route::get('/Reportes', [ReportesController::class, 'index'])->name('reportes.index');
 Route::post('/Reportes', [ReportesController::class, 'store'])->name('reportes.store');
@@ -221,11 +282,32 @@ Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
 // Módulo Reportes (menú)
 Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
 
-//módulo Pantallas
+// Rutas para permisos
+Route::get('permisos', [PermisoController::class, 'index'])->name('permisos.index');
+Route::post('permisos', [PermisoController::class, 'store'])->name('permisos.store');
+Route::put('permisos/{cod_permisos}', [PermisoController::class, 'update'])->name('permisos.update');
+Route::delete('permisos/{cod_permisos}', [PermisoController::class, 'destroy'])->name('permisos.destroy');
+
+// Rutas de pantallas
 Route::get('/pantallas', [PantallasController::class, 'index'])->name('pantallas.index');
 Route::post('/pantallas', [PantallasController::class, 'store'])->name('pantallas.store');
-Route::put('/pantallas/{cod_pantalla}/actualizar', [PantallasController::class, 'update'])->name('pantallas.update');
-Route::delete('/pantallas/{cod_pantalla}', [PantallasController::class, 'destroy'])->name('pantallas.destroy');
+Route::put('/pantallas/{id}', [PantallasController::class, 'update'])->name('pantallas.update');
+Route::delete('/pantallas/{id}', [PantallasController::class, 'destroy'])->name('pantallas.destroy');
 
+// Rutas para roles
+Route::get('/roles', [RolController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RolController::class, 'store'])->name('roles.store');
+Route::put('/roles/{cod_rol}/actualizar', [RolController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{cod_rol}', [RolController::class, 'destroy'])->name('roles.destroy');
 
+//rutas para usuarios
+Route::get('usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::post('usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+Route::put('usuarios/{id}/actualizar', [UsuarioController::class, 'update'])->name('usuarios.update');
+Route::delete('usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 
+//Rutas de Telefonos
+    Route::get('/telefonos', [TelefonoController::class, 'index'])->name('telefonos.index');
+    Route::post('/telefonos/store', [TelefonoController::class, 'store'])->name('telefonos.store');
+    Route::put('/telefonos/{cod_telefono}/actualizar', [TelefonoController::class, 'update'])->name('telefonos.update');
+    Route::delete('/telefonos/{cod_telefono}/destroy', [TelefonoController::class, 'destroy'])->name('telefonos.destroy');

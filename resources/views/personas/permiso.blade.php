@@ -31,9 +31,9 @@
             <table id="tabla-permisos" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Cod Permisos</th>
-                        <th>Id Rol</th>
-                        <th>Id Pantalla</th>
+                        <th>Código</th>
+                        <th>ID Rol</th>
+                        <th>ID Pantalla</th>
                         <th>Puede Ver</th>
                         <th>Puede Crear</th>
                         <th>Puede Editar</th>
@@ -75,6 +75,7 @@
                                 data-fecha="{{ $p['fecha_creacion'] ?? '' }}">
                                 <i class="fas fa-edit"></i> Editar
                             </button>
+
                             <form action="{{ route('permisos.destroy', $p['cod_Permisos']) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Eliminar este permiso?')">
                                 @csrf
                                 @method('DELETE')

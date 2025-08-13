@@ -105,6 +105,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <a href="{{ route('home') }}" class="back-button">Regresar</a>
             <h1 class="title">MENÚ DE MÓDULOS</h1>
         </div>
         <div class="options-grid">
@@ -113,31 +114,31 @@
                 <div class="option-icon">
                     <i class="fas fa-tree"></i>
                 </div>
-                <span class="option-text">Módulo de Bosques</span>
+                <span class="option-text">VER BOSQUES </span>
             </a>
 
             <!-- Opción para Módulo de Actividades -->
-            <a href="#" class="option">
+             <a href="{{ route('actividades.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
                     <i class="fas fa-running"></i>
                 </div>
-                <span class="option-text">Módulo de Actividades</span>
+                <span class="option-text">VER ACTIVIDADES </span>
             </a>
 
             <!-- Opción para Módulo de Acceso -->
-            <a href="#" class="option">
+         <a href="{{ route('acceso.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
                     <i class="fas fa-door-open"></i>
                 </div>
-                <span class="option-text">Módulo de Acceso</span>
+                <span class="option-text">VER ACCESO </span>
             </a>
 
             <!-- Opción para Módulo de Flora y Fauna -->
-            <a href="#" class="option">
+           <a href="{{ route('bosques.florafauna') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
                     <i class="fas fa-paw"></i>
                 </div>
-                <span class="option-text">Módulo de Flora y Fauna</span>
+                <span class="option-text">VER FLORA Y FAUNA </span>
             </a>
         </div>
     </div>

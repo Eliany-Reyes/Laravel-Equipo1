@@ -24,7 +24,7 @@ class PantallasController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $apiUrl = "http://localhost:3000/pantallas";
+        $apiUrl = "http://localhost:3000/pantallas/insertar";
         $response = Http::post($apiUrl, $data);
 
         return $response->successful()
@@ -35,7 +35,7 @@ class PantallasController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $apiUrl = "http://localhost:3000/pantallas/{$id}";
+        $apiUrl = "http://localhost:3000/pantallas/actualizar";
         $response = Http::put($apiUrl, $data);
 
         return $response->successful()

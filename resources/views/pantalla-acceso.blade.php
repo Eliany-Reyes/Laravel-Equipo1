@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Módulos de Gestión de Bosques</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos de Gestión de Accesos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -14,10 +14,16 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+
+            /* Centrado general */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* altura completa de la pantalla */
+            margin: 0;
         }
         .container {
             max-width: 900px;
-            margin: 2rem auto;
             padding: 2rem;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
@@ -63,10 +69,12 @@
             object-fit: cover;
             border-radius: 12px;
         }
+        /* Botones en una fila */
         .options-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 2rem;
+            flex-wrap: wrap;
             text-align: center;
         }
         .option {
@@ -76,6 +84,7 @@
             text-decoration: none;
             color: #4b5563;
             transition: transform 0.2s;
+            width: 120px;
         }
         .option:hover {
             transform: translateY(-5px);
@@ -99,9 +108,6 @@
             color: #1f2937;
         }
         @media (max-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
             .title {
                 font-size: 1.25rem;
             }
@@ -111,46 +117,37 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- Botón de regresar que te lleva a la página principal -->
             <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE GESTIÓN DE BOSQUES</h1>
-            <!-- Espacio para mantener el centrado del título -->
+            <h1 class="title">MÓDULOS DE GESTIÓN DE ACCESOS</h1>
             <div style="width: 100px;"></div>
         </div>
 
-        <!-- Contenedor para la imagen -->
         <div class="image-box">
-            <!-- Referencia a una imagen de un bosque. Puedes reemplazar esta URL con la tuya. -->
-            <img src="{{ asset('fotobosque.png') }}" alt="Imagen del Bosque" />
+            <img src="{{ asset('acceso.jpg') }}" alt="Imagen de Acceso">
         </div>
 
-        <!-- Título de las áreas disponibles -->
         <h2 class="text-xl font-semibold text-center mb-6">OPCIONES DISPONIBLES</h2>
-        
-        <!-- Cuadrícula para las opciones de bosques -->
+
         <div class="options-grid">
-            <!-- Opción para Ver Bosques -->
-            <a href="{{ route('bosques.index') }}" class="option">
+            <a href="{{ route('acceso.index') }}" class="option">
                 <div class="option-icon">
-                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-route"></i>
                 </div>
-                <span class="option-text">Ver Bosques</span>
+                <span class="option-text">Ver Accesos</span>
             </a>
 
-            <!-- Opción para Insertar Bosque -->
-            <a href="{{ route('bosques.create') }}" class="option">
-                <div class="option-icon">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <span class="option-text">Insertar Bosque</span>
-            </a>
-
-            <!-- Opción para Actualizar Bosques (redirige al listado) -->
-            <a href="{{ route('bosques.index') }}" class="option">
+            <a href="{{ route('acceso.index') }}" class="option">
                 <div class="option-icon">
                     <i class="fas fa-edit"></i>
                 </div>
-                <span class="option-text">Actualizar Bosques</span>
+                <span class="option-text">Actualizar Accesos</span>
+            </a>
+
+            <a href="{{ route('acceso.index') }}" class="option">
+                <div class="option-icon">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <span class="option-text">Eliminar Accesos</span>
             </a>
         </div>
     </div>
