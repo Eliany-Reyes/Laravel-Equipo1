@@ -27,6 +27,12 @@ use App\Http\Controllers\permisoController;
 use App\Http\Controllers\MantenimientoController;
 
 /*
+/*---------------------------- MODULO EVENTOS --------------------------------- */
+use App\Http\Controllers\eventoController;
+use App\Http\Controllers\reservaController;
+use App\Http\Controllers\FacturaController;
+/*
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -100,4 +106,64 @@ Route::get('/assign/{user}', [InicioController::class, 'showAssignForm'])->name(
 
 // Ruta que procesa el formulario de asignación y actualiza el usuario
 Route::put('/update-cod-persona/{user}', [InicioController::class, 'updateCodPersona'])->name('update.cod_persona');
+
+
+/*---------------------------- MODULO EVENTOS --------------------------------- */
+Route::get('/eventos', [EventoController::class, 'GetEventos'])->name('eventos.index');
+
+
+//POST
+Route::post('/eventos', [EventoController::class, 'postEventos'])->name('eventos.actualizar');
+// Ruta para mostrar el formulario de creación. Esta es la que faltaba.
+Route::get('/eventos/create', [EventoController::class, 'create'])->name('eventos.create');
+
+//PUT
+
+// Nueva ruta para mostrar el formulario de edición de un evento
+Route::get('/eventos/{cod_evento}/edit', [EventoController::class, 'edit'])->name('eventos.edit');
+
+// Ruta para procesar la actualización del evento con el método PUT
+Route::put('/eventos/{cod_evento}', [EventoController::class, 'updateEventos'])->name('eventos.update');
+
+//ruta delete
+Route::delete('/eventos/{id}', [EventoController::class, 'destroy'])->name('eventos.destroy');
+
+
+//FACTURAS
+Route::get('/facturas', [FacturaController::class, 'GetFacturas'])->name('factura.index');
+
+//POST
+Route::post('/facturas', [FacturaController::class, 'postFacturas'])->name('factura.actualizar');
+// Ruta para mostrar el formulario de creación. Esta es la que faltaba.
+Route::get('/facturas/create', [FacturaController::class, 'create'])->name('factura.create');
+
+//PUT
+
+Route::get('/facturas/{cod_factura}/edit', [FacturaController::class, 'edit'])->name('factura.edit');
+
+// Ruta para procesar la actualización del evento con el método PUT
+Route::put('/facturas/{cod_factura}', [FacturaController::class, 'updateFactura'])->name('factura.update');
+
+//ruta delete
+Route::delete('/facturas/{id}', [FacturaController::class, 'destroy'])->name('factura.destroy');
+
+
+                                    //RESERVAS
+Route::get('/reservas', [ReservaController::class, 'GetReservas'])->name('reserva.index');
+
+//POST
+Route::post('/reservas', [ReservaController::class, 'postReserva'])->name('reserva.actualizar');
+// Ruta para mostrar el formulario de creación. Esta es la que faltaba.
+Route::get('/reservas/create', [ReservaController::class, 'create'])->name('reserva.create');
+
+//PUT
+
+Route::get('/reservas/{cod_reserva}/edit', [ReservaController::class, 'edit'])->name('reserva.edit');
+
+// Ruta para procesar la actualización del evento con el método PUT
+Route::put('/reservas/{cod_reserva}', [ReservaController::class, 'updateReserva'])->name('reserva.update');
+
+//ruta delete
+Route::delete('/reservas/{id}', [ReservaController::class, 'destroy'])->name('reserva.destroy');
+
 
