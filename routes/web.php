@@ -113,12 +113,13 @@ Route::view('/visitas-inicio', 'visitas.inicio')->name('visitas.inicio');
 //--------------------------------------------------------------------------------------------------------------//
 
 
-// Backups
+
+// módulo backups (rutas corregidas y completas)
+// módulo backups
 Route::get('/backup', [BackupController::class, 'index'])->name('backups.index');
 Route::post('/backup/guardar', [BackupController::class, 'store'])->name('backups.store');
 Route::put('/backup/{cod_backup}/actualizar', [BackupController::class, 'update'])->name('backups.update');
-
-//--------------------------------------------------------------------------------------------------------------//
+Route::delete('/backup/{cod_backup}', [BackupController::class, 'destroy'])->name('backups.destroy');
 
 // Home grande
 Route::get('/home', fn () => view('home'))->name('home');
@@ -138,14 +139,14 @@ Route::put('/clientes/{cod_cliente}/actualizar', [ClienteController::class, 'upd
 Route::delete('/clientes/{cod_cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 
 // --- Rutas del Módulo de Correos ---
-// Ruta GET para mostrar el listado de correos.
+// Listar todos los correos
 Route::get('/correos', [CorreoController::class, 'GetCorreos'])->name('correos.index');
-// Ruta POST para almacenar un nuevo correo.
+
+// Guardar un nuevo correo
 Route::post('/correos/guardar', [CorreoController::class, 'StoreCorreo'])->name('correos.store');
-// Ruta PUT para actualizar un correo existente.
+
+// Actualizar un correo existente
 Route::put('/correos/{cod_correos}/actualizar', [CorreoController::class, 'UpdateCorreo'])->name('correos.update');
-// Ruta DELETE para eliminar un correo (descomentar cuando tengas la implementación en tu API Node).
-Route::delete('/correos/{cod_correos}/eliminar', [CorreoController::class, 'DeleteCorreo'])->name('correos.delete');
 
 //--------------------------------------------------------------------------------------------------------------//
 

@@ -11,8 +11,13 @@ class LoginController extends Controller
 {
     public function index(): View
     {
-        $rows = DB::select('CALL SEL_LOGIN()');       // SP: SELECT * FROM Logins
-        $logins = array_map('get_object_vars', $rows); // normaliza a array
+        $rows = DB::select('CALL SEL_LOGIN()');
+
+        // Convertir a arrays y normalizar llaves a minúsculas
+        $logins = array_map(function($row) {
+            return array_change_key_case(get_object_vars($row), CASE_LOWER);
+        }, $rows);
+
         return view('personas.logins', compact('logins'));
     }
 
@@ -26,7 +31,6 @@ class LoginController extends Controller
             'cod_usuario' => 'required|integer',
         ]);
 
-        // Inserción directa (si tienes INS_LOGIN usa CALL INS_LOGIN(?,?,?,?,?) en su lugar)
         DB::insert(
             'INSERT INTO Logins (fecha_login, ip_usuario, navegador, exito_login, cod_usuario) VALUES (?,?,?,?,?)',
             [
@@ -41,9 +45,9 @@ class LoginController extends Controller
         return redirect()->route('logins.index')->with('success', 'Login registrado correctamente.');
     }
 
-    public function destroy($cod_Login): RedirectResponse
+    public function destroy($cod_login): RedirectResponse
     {
-        DB::delete('DELETE FROM Logins WHERE cod_Login = ?', [$cod_Login]);
+        DB::delete('DELETE FROM Logins WHERE cod_Login = ?', [$cod_login]);
         return redirect()->route('logins.index')->with('success', 'Login eliminado correctamente.');
     }
 }

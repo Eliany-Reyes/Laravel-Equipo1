@@ -3,11 +3,10 @@
 @section('title', 'Correos')
 
 @section('content_header')
-   
-    <div class="d-flex justify-content-between align-items-center mb-3">
+   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Listado de Correos</h1>
-    <a href="{{ url('/home') }}" class="btn btn-secondary">
-        <i class="fas fa-home"></i> Regresar al Home
+    <a href="{{ url('/personas-inicio') }}" class="btn btn-secondary">
+        <i class="fas fa-home"></i> Regresar al menú de Personas
     </a>
 </div>
 @stop
@@ -15,7 +14,6 @@
 @section('content')
 <div class="container-fluid">
 
-    {{-- Mensajes de sesión para éxito o error --}}
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @elseif(session('error'))
@@ -23,7 +21,6 @@
     @endif
 
     <div class="card">
-        {{-- Encabezado de la tarjeta con el título y el botón para agregar --}}
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">Listado de Correos</h3>
             <button class="btn btn-primary btn-sm"
@@ -49,7 +46,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Bucle para mostrar los correos obtenidos de la API --}}
                     @forelse($correos as $c)
                         <tr>
                             <td>{{ $c['cod_correos'] ?? '' }}</td>
@@ -60,7 +56,6 @@
                             <td>{{ $c['Correo_institucional'] ?? '' }}</td>
                             <td>{{ $c['Observaciones'] ?? '' }}</td>
                             <td>
-                                {{-- Botón para abrir el modal de edición --}}
                                 <button class="btn btn-warning btn-sm"
                                         onclick="editarCorreo(this)"
                                         data-id="{{ $c['cod_correos'] ?? '' }}"
@@ -72,16 +67,6 @@
                                         data-observaciones="{{ $c['Observaciones'] ?? '' }}">
                                     Editar
                                 </button>
-                                
-                                {{-- Formulario con botón para eliminar --}}
-                                <form action="{{ route('correos.delete', $c['cod_correos']) }}" method="POST" style="display:inline-block;"
-                                      onsubmit="return confirm('¿Estás seguro de que deseas eliminar este correo? Esta acción no se puede deshacer.')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        Eliminar
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @empty
@@ -105,7 +90,6 @@
                 </div>
 
                 <div class="modal-body">
-                    {{-- Muestra errores de validación si existen --}}
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
@@ -129,7 +113,6 @@
                             <label class="form-label">Correo empleado</label>
                             <input type="email" name="correo_empleado" class="form-control">
                         </div>
-
                         <div class="col-md-4">
                             <label class="form-label">Correo secundario</label>
                             <input type="email" name="correo_secundario" class="form-control">
@@ -138,7 +121,6 @@
                             <label class="form-label">Correo institucional</label>
                             <input type="email" name="correo_institucional" class="form-control">
                         </div>
-
                         <div class="col-md-12">
                             <label class="form-label">Observaciones</label>
                             <input type="text" name="observaciones" class="form-control">
@@ -212,38 +194,27 @@
 
 @section('js')
 <script>
-    // Inicializa DataTables para la tabla de correos.
     $(function(){ $('#tabla-correos').DataTable(); });
 
-    /**
-     * Resetea el formulario de creación de correo.
-     */
     function resetCrearCorreo() {
         const f = document.getElementById('formCrearCorreo');
         if (f) f.reset();
     }
 
-    /**
-     * Rellena el modal de edición con los datos del correo seleccionado.
-     * @param {HTMLElement} btn El botón "Editar" que fue clickeado.
-     */
     function editarCorreo(btn) {
-        const d = btn.dataset; // Obtiene los atributos data- del botón.
+        const d = btn.dataset;
         const form = document.getElementById('formEditarCorreo');
-        // Establece la acción del formulario de edición con el ID del correo.
         form.action = `/correos/${d.id}/actualizar`;
 
-        // Rellena los campos del formulario de edición con los datos del correo.
         document.getElementById('edit_cod_correos').value          = d.id || '';
-        document.getElementById('edit_cod_correos_hidden').value    = d.id || '';
-        document.getElementById('edit_cod_persona').value           = d.codPersona || '';
-        document.getElementById('edit_correo_personal').value       = d.personal || '';
-        document.getElementById('edit_correo_empleado').value       = d.empleado || '';
-        document.getElementById('edit_correo_secundario').value     = d.secundario || '';
-        document.getElementById('edit_correo_institucional').value  = d.institucional || '';
-        document.getElementById('edit_observaciones').value         = d.observaciones || '';
+        document.getElementById('edit_cod_correos_hidden').value   = d.id || '';
+        document.getElementById('edit_cod_persona').value          = d.codPersona || '';
+        document.getElementById('edit_correo_personal').value      = d.personal || '';
+        document.getElementById('edit_correo_empleado').value      = d.empleado || '';
+        document.getElementById('edit_correo_secundario').value    = d.secundario || '';
+        document.getElementById('edit_correo_institucional').value = d.institucional || '';
+        document.getElementById('edit_observaciones').value        = d.observaciones || '';
 
-        // Muestra el modal de edición.
         $('#modalEditarCorreo').modal('show');
     }
 </script>
