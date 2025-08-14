@@ -85,12 +85,13 @@
             <h2 class="text-2xl font-semibold">MANTENIMIENTO</h2>
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
+        <a href="/reportes-inicio" class="card p-4 flex flex-col items-center justify-center text-center">
         <img src="{{ asset('localizar.png') }}" alt="Geolocalización" class="card-image w-48 h-48 mb-4">
-        <h2 class="text-2xl font-semibold">GEOLOCALIZACIÓN</h2>
+        <h2 class="text-2xl font-semibold">REPORTES</h2>
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
+        <!-- Se ha corregido el código eliminando la etiqueta 'a' anidada -->
+        <a href="{{ route('bosques.menu') }}" class="card p-4 flex flex-col items-center justify-center text-center">
             <img src="{{ asset('bosques.png') }}" alt="Bosques" class="card-image w-48 h-48 mb-4">
             <h2 class="text-2xl font-semibold">BOSQUES</h2>
         </a>
