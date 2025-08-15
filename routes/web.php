@@ -8,19 +8,20 @@ use App\Http\Controllers\InicioController;
 
 /*---------------------------- MODULO PERSONAS --------------------------------- */
 use App\Http\Controllers\personaController;
-use App\Http\Controllers\usuarioController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\clienteController;
 use App\Http\Controllers\empleadoController;
 use App\Http\Controllers\empleadoRolController;
 use App\Http\Controllers\correoController;
-use App\Http\Controllers\telefonoController;
+use App\Http\Controllers\TelefonoController;
 use App\Http\Controllers\direccionController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\backupController;
-use App\Http\Controllers\rolController;
-use App\Http\Controllers\pantallaController;
-use App\Http\Controllers\permisoController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\PantallasController;
+use App\Http\Controllers\permisocontroller;
 use App\Http\Controllers\VisitasController;
+use App\Http\Controllers\ReportesController;
 
 /* ------------------------------------------------------------------------------*/
 
@@ -220,12 +221,13 @@ Route::view('/visitas-inicio', 'visitas.inicio')->name('visitas.inicio');
 //--------------------------------------------------------------------------------------------------------------//
 
 
-// Backups
+
+// módulo backups (rutas corregidas y completas)
+// módulo backups
 Route::get('/backup', [BackupController::class, 'index'])->name('backups.index');
 Route::post('/backup/guardar', [BackupController::class, 'store'])->name('backups.store');
 Route::put('/backup/{cod_backup}/actualizar', [BackupController::class, 'update'])->name('backups.update');
-
-//--------------------------------------------------------------------------------------------------------------//
+Route::delete('/backup/{cod_backup}', [BackupController::class, 'destroy'])->name('backups.destroy');
 
 // Home grande
 Route::get('/home', fn () => view('home'))->name('home');
@@ -245,14 +247,14 @@ Route::put('/clientes/{cod_cliente}/actualizar', [ClienteController::class, 'upd
 Route::delete('/clientes/{cod_cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 
 // --- Rutas del Módulo de Correos ---
-// Ruta GET para mostrar el listado de correos.
+// Listar todos los correos
 Route::get('/correos', [CorreoController::class, 'GetCorreos'])->name('correos.index');
-// Ruta POST para almacenar un nuevo correo.
+
+// Guardar un nuevo correo
 Route::post('/correos/guardar', [CorreoController::class, 'StoreCorreo'])->name('correos.store');
-// Ruta PUT para actualizar un correo existente.
+
+// Actualizar un correo existente
 Route::put('/correos/{cod_correos}/actualizar', [CorreoController::class, 'UpdateCorreo'])->name('correos.update');
-// Ruta DELETE para eliminar un correo (descomentar cuando tengas la implementación en tu API Node).
-Route::delete('/correos/{cod_correos}/eliminar', [CorreoController::class, 'DeleteCorreo'])->name('correos.delete');
 
 //--------------------------------------------------------------------------------------------------------------//
 
@@ -295,4 +297,41 @@ Route::get('/logins', [LoginController::class, 'index'])->name('logins.index');
 Route::post('/logins/guardar', [LoginController::class, 'store'])->name('logins.store');
 Route::delete('/logins/{cod_Login}', [LoginController::class, 'destroy'])->name('logins.destroy');
 
+// Rutas para el módulo de Reportes
+Route::get('/Reportes', [ReportesController::class, 'index'])->name('reportes.index');
+Route::post('/Reportes', [ReportesController::class, 'store'])->name('reportes.store');
+Route::put('/Reportes', [ReportesController::class, 'update'])->name('reportes.update');
 
+Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
+// Módulo Reportes (menú)
+Route::view('/reportes-inicio', 'reportes.inicio')->name('reportes.inicio');
+
+// Rutas para permisos
+Route::get('permisos', [PermisoController::class, 'index'])->name('permisos.index');
+Route::post('permisos', [PermisoController::class, 'store'])->name('permisos.store');
+Route::put('permisos/{cod_permisos}', [PermisoController::class, 'update'])->name('permisos.update');
+Route::delete('permisos/{cod_permisos}', [PermisoController::class, 'destroy'])->name('permisos.destroy');
+
+// Rutas de pantallas
+Route::get('/pantallas', [PantallasController::class, 'index'])->name('pantallas.index');
+Route::post('/pantallas', [PantallasController::class, 'store'])->name('pantallas.store');
+Route::put('/pantallas/{id}', [PantallasController::class, 'update'])->name('pantallas.update');
+Route::delete('/pantallas/{id}', [PantallasController::class, 'destroy'])->name('pantallas.destroy');
+
+// Rutas para roles
+Route::get('/roles', [RolController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RolController::class, 'store'])->name('roles.store');
+Route::put('/roles/{cod_rol}/actualizar', [RolController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{cod_rol}', [RolController::class, 'destroy'])->name('roles.destroy');
+
+//rutas para usuarios
+Route::get('usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::post('usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
+Route::put('usuarios/{id}/actualizar', [UsuarioController::class, 'update'])->name('usuarios.update');
+Route::delete('usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+
+//Rutas de Telefonos
+    Route::get('/telefonos', [TelefonoController::class, 'index'])->name('telefonos.index');
+    Route::post('/telefonos/store', [TelefonoController::class, 'store'])->name('telefonos.store');
+    Route::put('/telefonos/{cod_telefono}/actualizar', [TelefonoController::class, 'update'])->name('telefonos.update');
+    Route::delete('/telefonos/{cod_telefono}/destroy', [TelefonoController::class, 'destroy'])->name('telefonos.destroy');

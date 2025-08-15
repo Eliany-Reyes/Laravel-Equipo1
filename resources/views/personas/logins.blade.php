@@ -1,23 +1,22 @@
 @extends('adminlte::page')
 
 @section('title', 'Logins')
- 
+
 @section('content_header')
- <div class="d-flex justify-content-between align-items-center">
+<div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Listado de Logins</h1>
-    <a href="{{ route('home') }}" class="btn btn-secondary">
-      <i class="fas fa-home"></i> Volver al Home
+    <a href="{{ url('/personas-inicio') }}" class="btn btn-secondary">
+        <i class="fas fa-home"></i> Regresar al menú de Personas
     </a>
-  </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        
-        <button class="btn btn-primary btn-sm"
-                data-toggle="modal"
-                data-target="#modalCrearLogin"
-                onclick="resetCrearLogin()">
-            <i class="fas fa-plus"></i> Agregar Login
-        </button>
-    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-primary btn-sm"
+            data-toggle="modal"
+            data-target="#modalCrearLogin"
+            onclick="resetCrearLogin()">
+        <i class="fas fa-plus"></i> Agregar Login
+    </button>
+</div>
 @stop
 
 @section('content')
@@ -45,14 +44,14 @@
                 <tbody>
                     @forelse($logins as $l)
                         <tr>
-                            <td>{{ $l['cod_Login'] ?? '' }}</td>
+                            <td>{{ $l['cod_login'] ?? '' }}</td>
                             <td>{{ $l['fecha_login'] ?? '' }}</td>
                             <td>{{ $l['ip_usuario'] ?? '' }}</td>
                             <td>{{ $l['navegador'] ?? '' }}</td>
                             <td>{{ ($l['exito_login'] ?? false) ? 'Sí' : 'No' }}</td>
                             <td>{{ $l['cod_usuario'] ?? '' }}</td>
                             <td>
-                                <form action="{{ route('logins.destroy', $l['cod_Login'] ?? 0) }}" method="POST" style="display:inline-block;"
+                                <form action="{{ route('logins.destroy', $l['cod_login'] ?? 0) }}" method="POST" style="display:inline-block;"
                                       onsubmit="return confirm('¿Seguro que deseas eliminar este login? Esta acción no se puede deshacer.')">
                                     @csrf
                                     @method('DELETE')

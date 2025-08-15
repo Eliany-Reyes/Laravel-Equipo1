@@ -14,10 +14,8 @@ class BackupController extends Controller
         $backups  = $response->json();
 
         if (!is_array($backups)) {
-            $backups = json_decode($response->body(), true) ?? [];
+            $backups = [];
         }
-        // Si tu API devuelve { data: [...] } descomenta:
-        // if (isset($backups['data']) && is_array($backups['data'])) $backups = $backups['data'];
 
         return view('personas.backups', compact('backups'));
     }
@@ -26,48 +24,57 @@ class BackupController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fecha_backup'  => 'required|date',
+            'fecha_backup'  => 'required|date_format:Y-m-d\TH:i',
             'ruta_archivo'  => 'required|string|max:255',
             'descripcion'   => 'nullable|string',
             'realizado_por' => 'required|string|max:100',
             'cod_usuario'   => 'required|integer|min:1',
         ]);
 
-        // tu API Node (ajusta si tu endpoint es diferente)
-        $resp = Http::post('http://127.0.0.1:3000/InsertarBackup', $validated);
+        // Formato para MySQL
+        $validated['fecha_backup'] = str_replace('T', ' ', $validated['fecha_backup']) . ':00';
 
-        return $resp->successful()
-            ? redirect()->route('backups.index')->with('success', 'Backup creado correctamente.')
-            : redirect()->back()->with('error', 'Error al crear backup: '.$resp->body());
+        $resp = Http::post('http://localhost:3000/backup/InsertarBackup', $validated);
+
+        if ($resp->failed()) {
+            return redirect()->back()->with('error', 'Error al crear backup: '.$resp->body());
+        }
+
+        return redirect()->route('backups.index')->with('success', 'Backup creado correctamente.');
     }
 
     // PUT /backup/{cod_backup}/actualizar
     public function update(Request $request, $cod_backup)
     {
         $validated = $request->validate([
-            'fecha_backup'  => 'required|date',
             'ruta_archivo'  => 'required|string|max:255',
             'descripcion'   => 'nullable|string',
             'realizado_por' => 'required|string|max:100',
-            'cod_usuario'   => 'required|integer|min:1',
         ]);
 
-        if (!empty($validated['fecha_backup'])) {
-            $validated['fecha_backup'] = date('Y-m-d H:i:s', strtotime($validated['fecha_backup']));
+        // El backend espera el ID en el body
+        $data = array_merge(['cod_backup' => $cod_backup], $validated);
+
+        $resp = Http::put('http://localhost:3000/backup/ActualizarBackup', $data);
+
+        if ($resp->failed()) {
+            return redirect()->back()->with('error', 'Error al actualizar backup: '.$resp->body());
         }
 
-        // Ajusta a la URL real de tu API para actualizar
-        $resp = Http::put("http://localhost:3000/backup/ActualizarBackup/{$cod_backup}", [
-            'p_fecha_backup'  => $validated['fecha_backup'],
-            'p_ruta_archivo'  => $validated['ruta_archivo'],
-            'p_descripcion'   => $validated['descripcion'] ?? '',
-            'p_realizado_por' => $validated['realizado_por'],
-            'p_cod_usuario'   => $validated['cod_usuario'],
-        ]);
+        return redirect()->route('backups.index')->with('success', 'Backup actualizado correctamente.');
+    }
 
-        return $resp->successful()
-            ? redirect()->route('backups.index')->with('success', 'Backup actualizado correctamente.')
-            : redirect()->back()->with('error', 'Error al actualizar backup: '.$resp->body());
+    // DELETE /backup/{cod_backup}
+    public function destroy($cod_backup)
+    {
+        // El backend espera el ID en el body
+        $resp = Http::withBody(json_encode(['cod_backup' => $cod_backup]), 'application/json')
+                    ->delete('http://localhost:3000/backup/EliminarBackup');
+
+        if ($resp->failed()) {
+            return redirect()->back()->with('error', 'Error al eliminar backup: '.$resp->body());
+        }
+
+        return redirect()->route('backups.index')->with('success', 'Backup eliminado correctamente.');
     }
 }
-
