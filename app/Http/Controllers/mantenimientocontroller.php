@@ -26,6 +26,34 @@ class MantenimientoController extends Controller
             // Si la llamada a la API fue exitosa
             if ($response->successful()) {
                 $mantenimientos = json_decode($response->body(), true);
+                if (!empty($mantenimientos)) {
+                $latestIndex = 0;
+                $latestValue = null;
+
+                foreach ($mantenimientos as $index => $item) {
+                    // Solo revisar created_at o cod_mantenimiento
+                    if (!empty($item['created_at'])) {
+                        $value = strtotime($item['created_at']);
+                    } elseif (!empty($item['cod_mantenimiento'])) {
+                        $value = (int) $item['cod_mantenimiento'];
+                    } else {
+                        $value = null;
+                    }
+
+                    // Comparar para encontrar el más reciente
+                    if ($value !== null && ($latestValue === null || $value > $latestValue)) {
+                        $latestValue = $value;
+                        $latestIndex = $index;
+                    }
+                }
+
+                // Mover el más reciente al inicio sin cambiar el orden del resto
+                if ($latestIndex !== 0) {
+                    $latestItem = $mantenimientos[$latestIndex];
+                    unset($mantenimientos[$latestIndex]);
+                    array_unshift($mantenimientos, $latestItem);
+                }
+            }
             } else {
                 // Si la API responde con un error, registra y usa un array vacío
                 Log::error('Error al obtener mantenimientos de la API externa:', [
