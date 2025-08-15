@@ -2,12 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Módulos</title>
+    <title>Módulos de Gestión de Accesos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,12 +14,13 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            margin: 0;
-            padding: 0;
+
+            /* Centrado general */
             display: flex;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            align-items: center;
+            min-height: 100vh; /* altura completa de la pantalla */
+            margin: 0;
         }
         .container {
             max-width: 900px;
@@ -57,10 +54,27 @@
             text-align: center;
             flex-grow: 1;
         }
+        .image-box {
+            background-color: #93c5fd;
+            height: 200px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .image-box img {
+            max-height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        /* Botones en una fila */
         .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 2rem;
+            flex-wrap: wrap;
             text-align: center;
         }
         .option {
@@ -70,6 +84,7 @@
             text-decoration: none;
             color: #4b5563;
             transition: transform 0.2s;
+            width: 120px;
         }
         .option:hover {
             transform: translateY(-5px);
@@ -93,9 +108,6 @@
             color: #1f2937;
         }
         @media (max-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
             .title {
                 font-size: 1.25rem;
             }
@@ -105,40 +117,37 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="{{ route('home') }}" class="back-button">Regresar</a>
-            <h1 class="title">MENÚ DE BOSQUES</h1>
+            <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
+            <h1 class="title"> GESTIÓN DE ACCESOS</h1>
+            <div style="width: 100px;"></div>
         </div>
+
+        <div class="image-box">
+            <img src="{{ asset('acceso.jpg') }}" alt="Imagen de Acceso">
+        </div>
+
+        <h2 class="text-xl font-semibold text-center mb-6">OPCIONES DISPONIBLES</h2>
+
         <div class="options-grid">
-            <!-- Opción para Módulo de Bosques -->
-           <a href="{{ route('bosques.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
+            <a href="{{ route('acceso.index') }}" class="option">
                 <div class="option-icon">
-                    <i class="fas fa-tree"></i>
+                    <i class="fas fa-route"></i>
                 </div>
-                <span class="option-text">VER BOSQUES </span>
+                <span class="option-text">Ver Accesos</span>
             </a>
 
-            <!-- Opción para Módulo de Actividades -->
-             <a href="{{ route('actividades.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
+            <a href="{{ route('acceso.create') }}" class="option">
                 <div class="option-icon">
-                    <i class="fas fa-running"></i>
+                    <i class="fas fa-plus-circle"></i>
                 </div>
-                <span class="option-text">VER ACTIVIDADES </span>
+                <span class="option-text">Insertar Nuevo Acceso</span>
             </a>
 
-            <!-- Opción para Módulo de Acceso -->
-         <a href="{{ route('acceso.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
+            <a href="{{ route('acceso.index') }}" class="option">
                 <div class="option-icon">
-                    <i class="fas fa-door-open"></i>
+                    <i class="fas fa-trash-alt"></i>
                 </div>
-                <span class="option-text">VER ACCESO </span>
-            </a>
-
-            <!-- Opción para Módulo de Flora y Fauna -->
-           <a href="{{ route('bosques.florafauna') }}" class="card p-4 flex flex-col items-center justify-center text-center">
-                <div class="option-icon">
-                    <i class="fas fa-paw"></i>
-                </div>
-                <span class="option-text">VER FLORA Y FAUNA </span>
+                <span class="option-text">Eliminar Accesos</span>
             </a>
         </div>
     </div>

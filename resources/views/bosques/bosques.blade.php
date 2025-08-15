@@ -41,7 +41,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <!-- Botón de casita para regresar al inicio y título del listado a la izquierda -->
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('home') }}" class="btn btn-success mr-2">
+                        <a href="{{ route('bosques.pantalla') }}" class="btn btn-success mr-2">
                             <i class="fas fa-home"></i>
                         </a>
                         <h3 class="card-title mb-0">Listado de Bosques</h3>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Módulos de Gestión de Bosques</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -14,8 +14,13 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+               
+            /* Centrado general */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* altura completa de la pantalla */
+            margin: 0;
         }
         .container {
             max-width: 900px;
@@ -67,7 +72,7 @@
         }
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             text-align: center;
         }
@@ -114,8 +119,8 @@
     <div class="container">
         <div class="header">
             <!-- Botón de regresar que te lleva a la página principal -->
-            <a href="{{ route('home') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE GESTIÓN DE BOSQUES</h1>
+            <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
+            <h1 class="title">GESTIÓN DE BOSQUES</h1>
             <!-- Espacio para mantener el centrado del título -->
             <div style="width: 100px;"></div>
         </div>
@@ -123,7 +128,7 @@
         <!-- Contenedor para la imagen -->
         <div class="image-box">
             <!-- Referencia a una imagen de un bosque. Puedes reemplazar esta URL con la tuya. -->
-            <img src="{{ asset('fotobosque.png') }}" alt="Imagen del Bosque">
+            <img src="{{ asset('fotobosque.png') }}" alt="Imagen del Bosque" />
         </div>
 
         <!-- Título de las áreas disponibles -->
@@ -140,7 +145,7 @@
             </a>
 
             <!-- Opción para Insertar Bosque -->
-            <a href="{{ route('bosques.index') }}" class="option">
+            <a href="{{ route('bosques.create') }}" class="option">
                 <div class="option-icon">
                     <i class="fas fa-plus"></i>
                 </div>
@@ -153,14 +158,6 @@
                     <i class="fas fa-edit"></i>
                 </div>
                 <span class="option-text">Actualizar Bosques</span>
-            </a>
-
-            <!-- Opción para Eliminar Bosques (redirige al listado) -->
-            <a href="{{ route('bosques.index') }}" class="option">
-                <div class="option-icon">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <span class="option-text">Eliminar Bosques</span>
             </a>
         </div>
     </div>
