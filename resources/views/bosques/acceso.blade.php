@@ -39,13 +39,17 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    {{-- Botón de regreso al menú de bosques --}}
+                    {{-- Contenedor del botón de regreso y el título --}}
                     <div class="d-flex align-items-center">
                         <a href="{{ route('acceso.pantalla') }}" class="btn btn-success mr-2">
                             <i class="fas fa-home"></i>
                         </a>
                         <h3 class="card-title mb-0">Listado de Accesos</h3>
                     </div>
+                    {{-- Botón para crear un nuevo acceso --}}
+                    <a href="{{ route('acceso.create') }}" class="btn btn-success ml-auto">
+                        <i class="fas fa-plus"></i> Añadir Acceso
+                    </a>
                 </div>
                 <div class="card-body">
                     <table id="tabla-accesos" class="table table-bordered table-striped">
@@ -68,16 +72,18 @@
                                 <td>{{ $acceso['estado_ruta'] ?? 'N/A' }}</td>
                                 <td>{{ $acceso['recomendaciones'] ?? 'N/A' }}</td>
                                 <td>
-                                    <div class="d-flex flex-column">
+                                    {{-- Contenedor para los botones de acción --}}
+                                    <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center">
                                         {{-- Botón para editar --}}
-                                        <a href="{{ route('acceso.edit', $acceso['cod_acceso']) }}" class="btn btn-success btn-sm mb-1 d-block">
+                                        <a href="{{ route('acceso.edit', ['cod_acceso' => $acceso['cod_acceso']]) }}" class="btn btn-success btn-sm mb-2 mb-sm-0 mr-sm-2">
                                             <i class="fas fa-edit"></i> Editar
                                         </a>
+                                        
                                         {{-- Formulario para eliminar --}}
-                                        <form action="{{ route('acceso.destroy', $acceso['cod_acceso']) }}" method="POST" class="d-block" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este acceso?');">
+                                        <form action="{{ route('acceso.destroy', ['cod_acceso' => $acceso['cod_acceso']]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este acceso?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-success btn-sm d-block w-100">
+                                            <button type="submit" class="btn btn-success btn-sm">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </form>

@@ -118,7 +118,7 @@
     <div class="container">
         <div class="header">
             <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE GESTIÓN DE ACCESOS</h1>
+            <h1 class="title"> GESTIÓN DE ACCESOS</h1>
             <div style="width: 100px;"></div>
         </div>
 
@@ -136,11 +136,11 @@
                 <span class="option-text">Ver Accesos</span>
             </a>
 
-            <a href="{{ route('acceso.index') }}" class="option">
+            <a href="{{ route('acceso.create') }}" class="option">
                 <div class="option-icon">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-plus-circle"></i>
                 </div>
-                <span class="option-text">Actualizar Accesos</span>
+                <span class="option-text">Insertar Nuevo Acceso</span>
             </a>
 
             <a href="{{ route('acceso.index') }}" class="option">

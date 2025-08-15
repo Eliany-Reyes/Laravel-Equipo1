@@ -106,7 +106,7 @@
     <div class="container">
         <div class="header">
             <a href="{{ route('home') }}" class="back-button">Regresar</a>
-            <h1 class="title">MENÚ DE MÓDULOS</h1>
+            <h1 class="title">MENÚ DE BOSQUES</h1>
         </div>
         <div class="options-grid">
             <!-- Opción para Módulo de Bosques -->

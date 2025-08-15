@@ -107,79 +107,102 @@ Route::get('/assign/{user}', [InicioController::class, 'showAssignForm'])->name(
 // Ruta que procesa el formulario de asignación y actualiza el usuario
 Route::put('/update-cod-persona/{user}', [InicioController::class, 'updateCodPersona'])->name('update.cod_persona');
 
-/*---------------------------- MODULO BOSQUES --------------------------------- */
-// Desde Home hacia el módulo Bosques
+/*---------------------------- MÓDULO BOSQUES --------------------------------- */
+
+// ESTA RUTA MUESTRA EL MENÚ PRINCIPAL DEL MÓDULO DE BOSQUES
 Route::get('/bosques/menu', function () {
-    return view('bosques.modulos_bosques'); // tu vista dentro de /views/bosques
+    return view('bosques.modulos_bosques'); 
 })->name('bosques.menu');
 
-// Desde el módulo Bosques hacia la pantalla Bosques
+// ESTA ES LA RUTA PARA LA PANTALLA PRINCIPAL DEL MÓDULO
 Route::get('/bosques/pantalla', function () {
-    return view('pantalla-bosques'); // tu vista raíz /views
+    return view('pantalla-bosques'); 
 })->name('bosques.pantalla');
 
+// RUTA PARA OBTENER Y MOSTRAR TODOS LOS BOSQUES
 Route::get('/bosques', [BosqueController::class, 'getBosques'])->name('bosques.index');
+// RUTA PARA ENVIAR DATOS Y CREAR UN NUEVO BOSQUE
 Route::post('/bosques', [BosqueController::class, 'postBosque'])->name('bosques.store');
+// RUTA PARA MOSTRAR EL FORMULARIO PARA CREAR UN BOSQUE
 Route::get('/bosques/create', [BosqueController::class, 'create'])->name('bosques.create');
+// RUTA PARA MOSTRAR EL FORMULARIO DE EDICIÓN DE UN BOSQUE ESPECÍFICO
 Route::get('/bosques/{cod_bosque}/edit', [BosqueController::class, 'edit'])->name('bosques.edit');
+// RUTA PARA ENVIAR LA ACTUALIZACIÓN DE DATOS DE UN BOSQUE
 Route::put('/bosques/{cod_bosque}', [BosqueController::class, 'updateBosque'])->name('bosques.update');
 
+/*---------------------------- MÓDULO ACTIVIDADES --------------------------------- */
 
-
-// Ruta agregada para el módulo de Flora y Fauna
-Route::get('/bosques/flora-fauna', [FloraFaunaController::class, 'GetFloraFauna'])->name('bosques.florafauna');
-
-/*---------------------------- MODULO ACTIVIDADES --------------------------------- */
-
-
-// Desde el módulo Bosques hacia la pantalla Bosques
+// RUTA PARA LA PANTALLA PRINCIPAL DEL MÓDULO DE ACTIVIDADES
 Route::get('/actividades/pantalla', function () {
-    return view('pantalla-actividades'); // tu vista raíz /views
+    return view('pantalla-actividades'); 
 })->name('actividades.pantalla');
 
-// Listado de todas las actividades
-// **SE CORRIGE EL NOMBRE DEL MÉTODO DE getActividades A index**
+// RUTA PARA MOSTRAR TODAS LAS ACTIVIDADES
 Route::get('/actividades', [ActividadesController::class, 'index'])->name('actividades.index');
-// Muestra el formulario de creación
-Route::get('/actividades/create', [ActividadesController::class, 'create'])->name('actividades.create');
-// Procesa la creación de una nueva actividad
+// RUTA PARA GUARDAR UNA NUEVA ACTIVIDAD
 Route::post('/actividades', [ActividadesController::class, 'store'])->name('actividades.store');
-// Muestra el formulario para editar una actividad específica
+// RUTA PARA MOSTRAR EL FORMULARIO PARA CREAR UNA ACTIVIDAD
+Route::get('/actividades/create', [ActividadesController::class, 'create'])->name('actividades.create');
+// RUTA PARA MOSTRAR EL FORMULARIO DE EDICIÓN DE UNA ACTIVIDAD
 Route::get('/actividades/{cod_actividad}/edit', [ActividadesController::class, 'edit'])->name('actividades.edit');
-// Procesa la actualización de una actividad específica
-Route::put('/actividades/{cod_actividad}', [ActividadesController::class, 'update'])->name('actividades.update');
-// Elimina una actividad específica
+// RUTA PARA ENVIAR LA ACTUALIZACIÓN DE UNA ACTIVIDAD
+Route::put('/actividades/{cod_actividad}', [ActividadesController::class, 'updateActividad'])->name('actividades.update');
+// RUTA PARA ELIMINAR UNA ACTIVIDAD
 Route::delete('/actividades/{cod_actividad}', [ActividadesController::class, 'destroy'])->name('actividades.destroy');
 
-/*---------------------------- MODULO ACCESOS --------------------------------- */
+/*---------------------------- MÓDULO ACCESO --------------------------------- */
 
-
-// Desde el módulo Bosques hacia la pantalla Bosques
+// RUTA PARA LA PANTALLA PRINCIPAL DEL MÓDULO DE ACCESO
 Route::get('/acceso/pantalla', function () {
-    return view('pantalla-acceso'); // tu vista raíz /views
+    return view('pantalla-acceso'); // ESTA ES LA PANTALLA PRINCIPAL DE ACCESO
 })->name('acceso.pantalla');
 
-
-// Muestra el listado de accesos
+// RUTA PARA MOSTRAR TODOS LOS ACCESOS
 Route::get('/acceso', [AccesoController::class, 'getAccesos'])->name('acceso.index');
-
-// Muestra el formulario para crear un nuevo acceso
-Route::get('/acceso/create', [AccesoController::class, 'createAcceso'])->name('acceso.create');
-
-// Guarda el nuevo acceso
-Route::post('/acceso', [AccesoController::class, 'storeAcceso'])->name('acceso.store');
-
-// Muestra el formulario para editar un acceso existente
+// RUTA PARA GUARDAR UN NUEVO ACCESO
+Route::post('/acceso', [AccesoController::class, 'store'])->name('acceso.store');
+// RUTA PARA MOSTRAR EL FORMULARIO PARA CREAR UN ACCESO
+Route::get('/acceso/create', [AccesoController::class, 'create'])->name('acceso.create');
+// RUTA PARA MOSTRAR EL FORMULARIO DE EDICIÓN DE UN ACCESO
 Route::get('/acceso/{cod_acceso}/edit', [AccesoController::class, 'editAcceso'])->name('acceso.edit');
-
-// Actualiza un acceso existente
+// RUTA PARA ENVIAR LA ACTUALIZACIÓN DE UN ACCESO
 Route::put('/acceso/{cod_acceso}', [AccesoController::class, 'updateAcceso'])->name('acceso.update');
-
-// Elimina un acceso
+// RUTA PARA ELIMINAR UN ACCESO
 Route::delete('/acceso/{cod_acceso}', [AccesoController::class, 'destroyAcceso'])->name('acceso.destroy');
 
-/*---------------------------- MODULO FLORA Y FAUNA --------------------------------- */
+/*---------------------------- MÓDULO FLORA Y FAUNA --------------------------------- */
+
+// OBTENGO TODOS LOS BOSQUES
 Route::get('/bosques', [BosqueController::class, 'getBosques'])->name('bosques.index');
+// OBTENGO LA FLORA Y FAUNA DE UN BOSQUE ESPECÍFICO
+Route::get('/bosques/flora-fauna', [FloraFaunaController::class, 'GetFloraFauna'])->name('bosques.florafauna');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //--------------------------------------------------------------------------------------------------------------//

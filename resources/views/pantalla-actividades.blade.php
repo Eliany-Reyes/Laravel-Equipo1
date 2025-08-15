@@ -14,6 +14,11 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
         .container {
             max-width: 900px;
@@ -64,9 +69,10 @@
             border-radius: 12px;
         }
         .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 2rem;
+            flex-wrap: wrap;
             text-align: center;
         }
         .option {
@@ -112,7 +118,7 @@
     <div class="container">
         <div class="header">
             <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE GESTIÓN DE ACTIVIDADES</h1>
+            <h1 class="title">GESTIÓN DE ACTIVIDADES</h1>
             <div style="width: 100px;"></div>
         </div>
 
@@ -137,11 +143,12 @@
                 <span class="option-text">Insertar Actividad</span>
             </a>
 
+            {{-- Ahora Editar y Eliminar apuntan a la lista general --}}
             <a href="{{ route('actividades.index') }}" class="option">
                 <div class="option-icon">
                     <i class="fas fa-edit"></i>
                 </div>
-                <span class="option-text">Actualizar Actividades</span>
+                <span class="option-text">Editar Actividades</span>
             </a>
 
             <a href="{{ route('actividades.index') }}" class="option">

@@ -12,35 +12,33 @@ use Illuminate\Routing\Controller as BaseController;
 class FloraFaunaController extends BaseController
 {
     /**
-     * Muestra el listado de flora y fauna obtenida de una API.
+     * ESTA FUNCIÓN VA A TRAER LA LISTA DE FLORA Y FAUNA DESDE MI API.
      */
     public function GetFloraFauna()
     {
-        $floraFauna = []; // Inicializamos la variable para evitar errores si la llamada a la API falla
+        // INICIALIZO ESTA VARIABLE, POR SI ALGO FALLA CON LA API NO TENGA ERRORES
+        $floraFauna = [];
 
+        
         try {
-            // Realiza una petición GET a la API en el endpoint correcto.
-            // Asegúrate de que esta URL sea la de tu backend.
-            $response = Http::get('http://localhost:3000/bosques/flora_fauna');
+           
+            $response = Http::get('http://localhost:3000/bosques/flora_fauna');  // HAGO UNA PETICIÓN GET A LA URL DE MI API
 
-            // Verifica si la petición fue exitosa
+       
             if ($response->successful()) {
-                // Decodifica la respuesta JSON y la asigna a la variable
+                // SI TODO BIEN, DECODIFICO LA RESPUESTA DE LA API Y LA GUARDO
                 $floraFauna = $response->json();
             } else {
-                // Si la petición no fue exitosa, puedes manejar el error
-                // Por ejemplo, mostrar un mensaje o loguear el error
-                // Para este ejemplo, simplemente se dejará $floraFauna como un array vacío
+                // SI ALGO SALIÓ MAL, MANDO UN MENSAJE DE ERROR A LA SESIÓN CON EL CÓDIGO
                 session()->flash('error', 'Error al obtener datos de flora y fauna. Código de estado: ' . $response->status());
             }
 
         } catch (\Exception $e) {
-            // Captura cualquier excepción, como un error de conexión
+            // SI HAY UN ERROR DE CONEXIÓN O CUALQUIER OTRA COSA, LO CAPTURO Y MANDO UN MENSAJE
             session()->flash('error', 'Error de conexión con la API de flora y fauna: ' . $e->getMessage());
         }
 
-        // Pasa los datos (incluso si está vacío) a la vista.
-        // La ruta de la vista debe ser 'bosques.flora-fauna' para que funcione.
+        // LE PASO LOS DATOS A LA VISTA, PARA QUE LOS PUEDA MOSTRAR
         return view('bosques.flora-fauna', compact('floraFauna'));
     }
 }

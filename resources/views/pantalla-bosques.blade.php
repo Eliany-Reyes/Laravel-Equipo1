@@ -14,6 +14,13 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+               
+            /* Centrado general */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* altura completa de la pantalla */
+            margin: 0;
         }
         .container {
             max-width: 900px;
@@ -113,7 +120,7 @@
         <div class="header">
             <!-- Botón de regresar que te lleva a la página principal -->
             <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE GESTIÓN DE BOSQUES</h1>
+            <h1 class="title">GESTIÓN DE BOSQUES</h1>
             <!-- Espacio para mantener el centrado del título -->
             <div style="width: 100px;"></div>
         </div>
