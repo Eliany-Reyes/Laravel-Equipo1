@@ -3,7 +3,9 @@
 @section('title', 'Editar Factura')
 
 @section('content_header')
-    <h1>Editar Factura</h1>
+    <h1 style="text-align: center;">Editar Factura</h1>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 @stop
 
 @section('content')
@@ -41,11 +43,45 @@
                 </div>
 
 
-                {{-- ... y así sucesivamente para todos los campos ... --}}
+                
 
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                <a href="{{ route('factura.index') }}" class="btn btn-secondary">Cancelar</a>
+                
+
+                <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i></button>
+                    
+                    <a href="{{ route('factura.index') }}" class="btn btn-danger">Cancelar</a>
+                </div>
+                
+
             </form>
         </div>
     </div>
 @stop
+
+<style>
+    /* Estilos existentes para el fondo y la página */
+    body.sidebar-mini {
+        background-color: #f0fdf4 !important;
+    }
+    .content-wrapper {
+        background-color: #f0fdf4 !important;
+    }
+    
+    /* Estilos para centrar los elementos del formulario */
+    .form-group {
+        display: flex; 
+        flex-direction: column;
+        align-items: center; 
+    }
+    
+    .form-group label {
+        text-align: center; /* Centra el texto de las etiquetas */
+    }
+
+    .form-control {
+        max-width: 300px; /* Mantiene los campos de entrada más cortos */
+        text-align: center; /* Centra el texto dentro de los campos */
+    }
+
+</style>

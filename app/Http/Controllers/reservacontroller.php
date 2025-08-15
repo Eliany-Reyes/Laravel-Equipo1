@@ -14,12 +14,55 @@ class ReservaController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
      
-     public function GetReservas()
+     
+
+    public function GetReservas()
     {
         $response = Http::get('http://localhost:3000/reserva/obtenerTodasReservas');
-        $reservas = json_decode($response, true);
+          if ($response->successful()) {
+        // Si es exitosa, decodifica el JSON de la respuesta
+        $reservas = json_decode($response->body(), true);
+            // ----------------------------------------------------
+                // Lógica para ordenar el evento más reciente al inicio
+                // ----------------------------------------------------
+                if (!empty($reservas)) {
+                    $latestValue = null;
+                    $latestIndex = null;
+
+                    foreach ($reservas as $index => $item) {
+                        // Compara usando 'created_at' si existe
+                        if (!empty($item['created_at'])) {
+                            $value = strtotime($item['created_at']);
+                        } elseif (!empty($item['cod_reserva'])) {
+                            // Si no hay fecha, usa el código de evento
+                            $value = (int) $item['cod_reserva'];
+                        } else {
+                            $value = null;
+                        }
+
+                        // Encuentra el evento con el valor más alto (más reciente)
+                        if ($value !== null && ($latestValue === null || $value > $latestValue)) {
+                            $latestValue = $value;
+                            $latestIndex = $index;
+                        }
+                    }
+
+                    // Si se encontró el evento más reciente y no es el primero, lo mueve al inicio
+                    if ($latestIndex !== null && $latestIndex !== 0) {
+                        $latestItem = $reservas[$latestIndex];
+                        unset($reservas[$latestIndex]); // Elimina el evento de su posición original
+                        array_unshift($reservas, $latestItem); // Lo añade al inicio del array
+                    }
+                }
+    } else {
+        // Si no es exitosa, inicializa $reservas como un arreglo vacío
+        $reservas = [];
+        // Opcional: puedes agregar un mensaje de error a la sesión
+        session()->flash('error', 'Error al obtener los reservas de la API. Inténtalo de nuevo más tarde.');
+    }
+        
         return view('moduloeventos.reservas', compact('reservas'));
-    } 
+    }  
 
      public function create()
     {

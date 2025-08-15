@@ -69,7 +69,7 @@ class MantenimientoController extends Controller
         // Manejar la respuesta de la API
         if ($response->successful()) {
             // Si la API respondió con éxito, redirige a la vista principal
-            return redirect()->route('mantenimiento.index')->with('success', 'Mantenimiento creado con éxito.');
+            return redirect()->route('mantenimientos.index')->with('success', 'Mantenimiento creado con éxito.');
         } else {
             // Si la respuesta no es exitosa, registra el error en el log de Laravel
             Log::error('Error al crear mantenimiento desde la API externa:', [

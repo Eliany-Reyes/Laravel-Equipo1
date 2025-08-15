@@ -16,12 +16,55 @@ class FacturaController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
      
-     public function GetFacturas()
+    
+
+    public function GetFacturas()
     {
         $response = Http::get('http://localhost:3000/factura/TodasFacturas');
-        $facturas = json_decode($response, true);
+          if ($response->successful()) {
+        // Si es exitosa, decodifica el JSON de la respuesta
+        $facturas = json_decode($response->body(), true);
+            // ----------------------------------------------------
+                // Lógica para ordenar el evento más reciente al inicio
+                // ----------------------------------------------------
+                if (!empty($facturas)) {
+                    $latestValue = null;
+                    $latestIndex = null;
+
+                    foreach ($facturas as $index => $item) {
+                        // Compara usando 'created_at' si existe
+                        if (!empty($item['created_at'])) {
+                            $value = strtotime($item['created_at']);
+                        } elseif (!empty($item['cod_factura'])) {
+                            // Si no hay fecha, usa el código de evento
+                            $value = (int) $item['cod_factura'];
+                        } else {
+                            $value = null;
+                        }
+
+                        // Encuentra el evento con el valor más alto (más reciente)
+                        if ($value !== null && ($latestValue === null || $value > $latestValue)) {
+                            $latestValue = $value;
+                            $latestIndex = $index;
+                        }
+                    }
+
+                    // Si se encontró el evento más reciente y no es el primero, lo mueve al inicio
+                    if ($latestIndex !== null && $latestIndex !== 0) {
+                        $latestItem = $facturas[$latestIndex];
+                        unset($facturas[$latestIndex]); // Elimina el evento de su posición original
+                        array_unshift($facturas, $latestItem); // Lo añade al inicio del array
+                    }
+                }
+    } else {
+        // Si no es exitosa, inicializa $facturas como un arreglo vacío
+        $facturas = [];
+        // Opcional: puedes agregar un mensaje de error a la sesión
+        session()->flash('error', 'Error al obtener los facturas de la API. Inténtalo de nuevo más tarde.');
+    }
+        
         return view('moduloeventos.facturas', compact('facturas'));
-    } 
+    }  
 
 
      public function create()

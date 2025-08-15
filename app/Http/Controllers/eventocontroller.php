@@ -15,12 +15,50 @@ class EventoController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
      
+    public function indexModulos()
+    {
+        // Se corrige la ruta de la vista para que apunte a la subcarpeta 'actividades'
+        return view('moduloeventos.moduloEventos');
+    }
+
     public function GetEventos()
     {
         $response = Http::get('http://localhost:3000/eventos/obtenerTodos');
           if ($response->successful()) {
         // Si es exitosa, decodifica el JSON de la respuesta
         $eventos = json_decode($response->body(), true);
+            // ----------------------------------------------------
+                // Lógica para ordenar el evento más reciente al inicio
+                // ----------------------------------------------------
+                if (!empty($eventos)) {
+                    $latestValue = null;
+                    $latestIndex = null;
+
+                    foreach ($eventos as $index => $item) {
+                        // Compara usando 'created_at' si existe
+                        if (!empty($item['created_at'])) {
+                            $value = strtotime($item['created_at']);
+                        } elseif (!empty($item['cod_evento'])) {
+                            // Si no hay fecha, usa el código de evento
+                            $value = (int) $item['cod_evento'];
+                        } else {
+                            $value = null;
+                        }
+
+                        // Encuentra el evento con el valor más alto (más reciente)
+                        if ($value !== null && ($latestValue === null || $value > $latestValue)) {
+                            $latestValue = $value;
+                            $latestIndex = $index;
+                        }
+                    }
+
+                    // Si se encontró el evento más reciente y no es el primero, lo mueve al inicio
+                    if ($latestIndex !== null && $latestIndex !== 0) {
+                        $latestItem = $eventos[$latestIndex];
+                        unset($eventos[$latestIndex]); // Elimina el evento de su posición original
+                        array_unshift($eventos, $latestItem); // Lo añade al inicio del array
+                    }
+                }
     } else {
         // Si no es exitosa, inicializa $eventos como un arreglo vacío
         $eventos = [];

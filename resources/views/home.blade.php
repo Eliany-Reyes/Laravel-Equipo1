@@ -63,21 +63,23 @@
     </header>
 
     <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
-            <img src="{{ asset('personas.png') }}" alt="Personas" class="card-image w-48 h-48 mb-4">
-            <h2 class="text-2xl font-semibold">PERSONAS</h2>
+          <a href="/personas-inicio" class="card p-4 flex flex-col items-center justify-center text-center">
+            <img src="{{ asset('personas.png') }}" alt="Personas" class="card-image w-48 h-48 object-cover rounded-xl">
+             <h2 class="text-2xl font-semibold">PERSONAS</h2>
+                  
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
+        <a href="{{ route('moduloeventos.menu') }}" class="card p-4 flex flex-col items-center justify-center text-center">
             <img src="{{ asset('eventos.png') }}" alt="Eventos" class="card-image w-48 h-48 mb-4">
             <h2 class="text-2xl font-semibold">EVENTOS</h2>
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
-            <img src="{{ asset('visitas.png') }}" alt="Visitas" class="card-image w-48 h-48 mb-4">
-            <h2 class="text-2xl font-semibold">VISITAS</h2>
-        </a>
+        <a href="/visitas-inicio" class="card p-4 flex flex-col items-center justify-center text-center">
+  <img src="{{ asset('visitas.png') }}" alt="Visitas" class="card-image w-48 h-48 object-cover rounded-xl">
+  <h2 class="text-2xl font-semibold">VISITAS</h2>
+</a>
 
+     
         <a href="{{ route('mantenimientos.index_pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
             <img src="{{ asset('mantenimiento.png') }}" alt="Mantenimiento" class="card-image w-48 h-48 mb-4">
             <h2 class="text-2xl font-semibold">MANTENIMIENTO</h2>
@@ -88,7 +90,8 @@
         <h2 class="text-2xl font-semibold">GEOLOCALIZACIÓN</h2>
         </a>
 
-        <a href="#" class="card p-4 flex flex-col items-center justify-center text-center">
+        <!-- Se ha corregido el código eliminando la etiqueta 'a' anidada -->
+        <a href="{{ route('bosques.menu') }}" class="card p-4 flex flex-col items-center justify-center text-center">
             <img src="{{ asset('bosques.png') }}" alt="Bosques" class="card-image w-48 h-48 mb-4">
             <h2 class="text-2xl font-semibold">BOSQUES</h2>
         </a>

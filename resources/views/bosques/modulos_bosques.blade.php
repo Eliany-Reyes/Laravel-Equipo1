@@ -2,25 +2,32 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulos de Mantenimiento</title>
+    <title>Menú de Módulos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-
             background-image: url("{{ asset('fondo-modulos.png') }}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; 
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         .container {
             max-width: 900px;
-            margin: 2rem auto;
             padding: 2rem;
-            
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -33,7 +40,6 @@
         }
         .back-button {
             padding: 0.5rem 1rem;
-         
             background-color: #16a34a;
             color: #ffffff;
             border-radius: 9999px;
@@ -42,7 +48,6 @@
             transition: background-color 0.2s;
         }
         .back-button:hover {
-         
             background-color: #15803d;
         }
         .title {
@@ -51,22 +56,6 @@
             color: #1f2937;
             text-align: center;
             flex-grow: 1;
-        }
-        .image-box {
-            background-color: #93c5fd;
-            height: 200px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        .image-box img {
-            max-height: 100%;
-            width: 100%;
-           
-            object-fit: cover;
-            border-radius: 12px;
         }
         .options-grid {
             display: grid;
@@ -89,13 +78,11 @@
             width: 80px;
             height: 80px;
             border-radius: 9999px;
-          
             background-color: #86efac;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-           
             color: #15803d;
             margin-bottom: 0.5rem;
         }
@@ -103,6 +90,7 @@
             font-weight: 500;
             text-transform: uppercase;
             font-size: 0.875rem;
+            color: #1f2937;
         }
         @media (max-width: 600px) {
             .options-grid {
@@ -117,57 +105,42 @@
 <body>
     <div class="container">
         <div class="header">
-          
             <a href="{{ route('home') }}" class="back-button">Regresar</a>
-            <h1 class="title">MÓDULOS DE MANTENIMIENTO PREVENTIVOS DE BOSQUES</h1>
-          
-            <div style="width: 100px;"></div>
+            <h1 class="title">MENÚ DE MÓDULOS</h1>
         </div>
-
-        <!-- Contenedor para la imagen -->
-        <div class="image-box">
-            <!-- La ruta de la imagen se ha actualizado a 'mant.png' -->
-            <img src="{{ asset('mant.png') }}" alt="Imagen del Bosque">
-        </div>
-
-        <!-- Título de las áreas disponibles -->
-        <h2 class="text-xl font-semibold text-center mb-6">ÁREAS DISPONIBLES</h2>
-        
-        <!-- Cuadrícula para las opciones de mantenimiento -->
         <div class="options-grid">
-            <!-- Opción para Ver Mantenimientos -->
-            <a href="{{ route('mantenimientos.index') }}" class="option">
+            <!-- Opción para Módulo de Bosques -->
+           <a href="{{ route('bosques.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
-                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-tree"></i>
                 </div>
-                <span class="option-text">Ver Mantenimientos</span>
+                <span class="option-text">VER BOSQUES </span>
             </a>
 
-            <!-- Opción para Insertar Mantenimiento -->
-            <a href="{{ route('mantenimientos.create') }}" class="option">
+            <!-- Opción para Módulo de Actividades -->
+             <a href="{{ route('actividades.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-running"></i>
                 </div>
-                <span class="option-text">Insertar Mantenimiento</span>
+                <span class="option-text">VER ACTIVIDADES </span>
             </a>
 
-            <!-- Opción para Actualizar Mantenimientos (redirige al listado) -->
-            <a href="{{ route('mantenimientos.index') }}" class="option">
+            <!-- Opción para Módulo de Acceso -->
+         <a href="{{ route('acceso.pantalla') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-door-open"></i>
                 </div>
-                <span class="option-text">Actualizar Mantenimientos</span>
+                <span class="option-text">VER ACCESO </span>
             </a>
 
-            <!-- Opción para Eliminar Mantenimientos (redirige al listado) -->
-            <a href="{{ route('mantenimientos.index') }}" class="option">
+            <!-- Opción para Módulo de Flora y Fauna -->
+           <a href="{{ route('bosques.florafauna') }}" class="card p-4 flex flex-col items-center justify-center text-center">
                 <div class="option-icon">
-                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-paw"></i>
                 </div>
-                <span class="option-text">Eliminar Mantenimientos</span>
+                <span class="option-text">VER FLORA Y FAUNA </span>
             </a>
         </div>
     </div>
 </body>
 </html>
-
