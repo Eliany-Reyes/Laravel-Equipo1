@@ -4,10 +4,10 @@
 
 @section('content_header')
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Listado de Empleados</h1>
-    <a href="{{ url('/home') }}" class="btn btn-secondary">
-        <i class="fas fa-home"></i> Regresar al Home
+    <a href="{{ url('/personas-inicio') }}" class="btn btn-secondary">
+        <i class="fas fa-home"></i> Regresar al menú de Personas
     </a>
 </div>
 @stop

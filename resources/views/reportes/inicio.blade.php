@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulos de Gestión de Accesos</title>
+    <title>Módulo de Reportes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -14,16 +14,10 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-
-            /* Centrado general */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* altura completa de la pantalla */
-            margin: 0;
         }
         .container {
             max-width: 900px;
+            margin: 2rem auto;
             padding: 2rem;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
@@ -45,17 +39,17 @@
             transition: background-color 0.2s;
         }
         .back-button:hover {
-            background-color: #15803d;
+              background-color: #15803d;
         }
         .title {
-            font-size: 1.5rem;
+         font-size: 1.5rem;
             font-weight: 700;
             color: #1f2937;
             text-align: center;
             flex-grow: 1;
         }
         .image-box {
-            background-color: #93c5fd;
+             background-color: #93c5fd;
             height: 200px;
             border-radius: 12px;
             display: flex;
@@ -69,12 +63,10 @@
             object-fit: cover;
             border-radius: 12px;
         }
-        /* Botones en una fila */
         .options-grid {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            flex-wrap: wrap;
             text-align: center;
         }
         .option {
@@ -84,13 +76,12 @@
             text-decoration: none;
             color: #4b5563;
             transition: transform 0.2s;
-            width: 120px;
         }
         .option:hover {
             transform: translateY(-5px);
         }
         .option-icon {
-            width: 80px;
+           width: 80px;
             height: 80px;
             border-radius: 9999px;
             background-color: #86efac;
@@ -105,9 +96,11 @@
             font-weight: 500;
             text-transform: uppercase;
             font-size: 0.875rem;
-            color: #1f2937;
         }
         @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
             .title {
                 font-size: 1.25rem;
             }
@@ -117,37 +110,36 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="{{ route('bosques.menu') }}" class="back-button">Regresar</a>
-            <h1 class="title"> GESTIÓN DE ACCESOS</h1>
+            <a href="{{ route('home') }}" class="back-button">Regresar</a>
+            <h1 class="title">MÓDULO DE REPORTES</h1>
             <div style="width: 100px;"></div>
         </div>
 
         <div class="image-box">
-            <img src="{{ asset('acceso.jpg') }}" alt="Imagen de Acceso">
+            <img src="{{ asset('localizar.png') }}" alt="Imagen Reportes">
         </div>
 
         <h2 class="text-xl font-semibold text-center mb-6">OPCIONES DISPONIBLES</h2>
 
         <div class="options-grid">
-            <a href="{{ route('acceso.index') }}" class="option">
-                <div class="option-icon">
-                    <i class="fas fa-route"></i>
-                </div>
-                <span class="option-text">Ver Accesos</span>
+            <a href="{{ route('reportes.index') }}" class="option">
+                <div class="option-icon"><i class="fas fa-list"></i></div>
+                <span class="option-text">Ver reportes</span>
             </a>
 
-            <a href="{{ route('acceso.create') }}" class="option">
-                <div class="option-icon">
-                    <i class="fas fa-plus-circle"></i>
-                </div>
-                <span class="option-text">Insertar Nuevo Acceso</span>
+            <a href="{{ route('reportes.index', ['crear' => 1]) }}" class="option">
+                <div class="option-icon"><i class="fas fa-plus"></i></div>
+                <span class="option-text">Insertar reporte</span>
             </a>
 
-            <a href="{{ route('acceso.index') }}" class="option">
-                <div class="option-icon">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <span class="option-text">Eliminar Accesos</span>
+            <a href="{{ route('reportes.index') }}" class="option">
+                <div class="option-icon"><i class="fas fa-edit"></i></div>
+                <span class="option-text">Actualizar</span>
+            </a>
+
+            <a href="{{ route('reportes.index') }}" class="option">
+                <div class="option-icon"><i class="fas fa-trash-alt"></i></div>
+                <span class="option-text">Eliminar</span>
             </a>
         </div>
     </div>

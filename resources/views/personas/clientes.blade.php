@@ -3,12 +3,12 @@
 @section('title', 'Clientes')
 
 @section('content_header')
-  <div class="d-flex justify-content-between align-items-center mb-3">
+ <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Listado de Clientes</h1>
-    <a href="{{ route('home') }}" class="btn btn-secondary">
-      <i class="fas fa-home"></i> Volver al Home
+    <a href="{{ url('/personas-inicio') }}" class="btn btn-secondary">
+        <i class="fas fa-home"></i> Regresar al menú de Personas
     </a>
-  </div>
+</div>
 @stop
 
 @section('content')

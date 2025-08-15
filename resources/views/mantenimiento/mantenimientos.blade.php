@@ -20,6 +20,7 @@
                     <a href="{{ route('mantenimientos.create') }}" class="btn btn-success mt-3">Crear Nuevo Mantenimiento</a>
                 </div>
                 <div class="card-body">
+                    
                     <table id="tabla-mantenimientos" class="table table-bordered table-striped">
                         <thead>
                             <tr>

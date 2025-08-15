@@ -3,18 +3,18 @@
 @section('title', 'Insertar Actividad')
 
 @section('content_header')
-<div class="container">
-    <h2>Insertar Nueva Actividad</h2>
+<div class="container-fluid text-center">
+    <h2 class="font-weight-bold"><i class="fas fa-hiking"></i> Insertar Nueva Actividad</h2>
 </div>
 @stop
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
-            <div class="card card-primary">
+        <div class="col-md-8 offset-md-2">
+            <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Formulario de Inserción</h3>
+                    <h3 class="card-title"><i class="fas fa-edit"></i> Formulario de Inserción</h3>
                 </div>
                 <form action="{{ route('actividades.store') }}" method="POST">
                     @csrf
@@ -56,9 +56,9 @@
                         </div>
                     </div>
                     
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Guardar Actividad</button>
-                        <a href="{{ route('actividades.pantalla') }}" class="btn btn-secondary">Cancelar</a>
+                    <div class="card-footer text-right">
+                        <a href="{{ route('actividades.pantalla') }}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Actividad</button>
                     </div>
                 </form>
             </div>

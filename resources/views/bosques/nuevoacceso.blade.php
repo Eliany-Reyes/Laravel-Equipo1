@@ -1,91 +1,89 @@
 @extends('adminlte::page')
 
-@section('title', 'Insertar Nuevo Acceso')
+@section('title', 'Insertar Acceso')
 
 @section('content_header')
-<div class="container text-center">
-    <h2 class="text-3xl font-bold leading-tight text-gray-900">
-        INSERTAR NUEVO ACCESO
-    </h2>
+<div class="container-fluid text-center">
+    <h2 class="font-weight-bold"><i class="fas fa-edit"></i> Insertar Nuevo Acceso</h2>
 </div>
-@endsection
+@stop
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid">
     <div class="row">
-        {{-- Mensajes de sesión para éxito o error --}}
-        @if(session('success'))
-            <div class="col-12 mb-4">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="col-md-8 offset-md-2">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-edit"></i> Formulario de Inserción</h3>
                 </div>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="col-12 mb-4">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-        @endif
-    </div>
+                <form action="{{ route('acceso.store') }}" method="POST">
+                    @csrf
+                    <div class="card-body">
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <a href="{{ route('acceso.index') }}" class="btn btn-success mr-2">
-                            <i class="fas fa-arrow-left"></i> Regresar
-                        </a>
-                        <h3 class="card-title mb-0">Formulario de Nuevo Acceso</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('acceso.store') }}" method="POST">
-                        @csrf
-                        <div class="space-y-4">
-                            {{-- Campo: Código de Bosque (Select dinámico) --}}
-                            <div class="form-group">
-                                <label for="cod_bosque">Bosque</label>
-                                <select id="cod_bosque" name="cod_bosque" class="form-control" required>
-                                    <option value="" disabled selected>Selecciona un bosque</option>
-                                    {{-- Aquí se iterará sobre la variable $bosques --}}
+                        {{-- Menú desplegable para seleccionar el bosque --}}
+                        <div class="form-group">
+                            <label for="cod_bosque">Código de Bosque</label>
+                            <select class="form-control @error('cod_bosque') is-invalid @enderror" id="cod_bosque" name="cod_bosque" required>
+                                <option value="" disabled selected>Selecciona un bosque</option>
+                                @if(isset($bosques) && is_array($bosques) && count($bosques) > 0)
                                     @foreach($bosques as $bosque)
-                                        <option value="{{ $bosque['cod_bosque'] }}">{{ $bosque['nombre_bosque'] }} ({{ $bosque['cod_bosque'] }})</option>
+                                        <option value="{{ $bosque['cod_bosque'] ?? '' }}" {{ old('cod_bosque') == ($bosque['cod_bosque'] ?? '') ? 'selected' : '' }}>
+                                            {{ $bosque['nombre_bosque'] ?? 'N/A' }} ({{ $bosque['cod_bosque'] ?? '' }})
+                                        </option>
                                     @endforeach
-                                </select>
-                            </div>
-                            {{-- Campo: Tipo de Ruta --}}
-                            <div class="form-group">
-                                <label for="tipo_ruta">Tipo de Ruta</label>
-                                <input type="text" id="tipo_ruta" name="tipo_ruta" class="form-control" placeholder="Ej: Carretera Principal" required>
-                            </div>
-                            {{-- Campo: Estado de Ruta --}}
-                            <div class="form-group">
-                                <label for="estado_ruta">Estado de la Ruta</label>
-                                <input type="text" id="estado_ruta" name="estado_ruta" class="form-control" placeholder="Ej: Excelente" required>
-                            </div>
-                            {{-- Campo: Recomendaciones --}}
-                            <div class="form-group">
-                                <label for="recomendaciones">Recomendaciones</label>
-                                <textarea id="recomendaciones" name="recomendaciones" rows="3" class="form-control" placeholder="Ej: Acceso para todo tipo de vehículo" required></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-success">Guardar  Acceso</button>
-                                <a href="{{ route('acceso.index') }}" class="btn btn-secondary">Cancelar</a>
-                            </div>
+                                @else
+                                    <option value="" disabled>No se pudieron cargar los bosques</option>
+                                @endif
+                            </select>
+                            @error('cod_bosque')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
-                    </form>
-                </div>
+
+                        {{-- Campo para el Tipo de Ruta --}}
+                        <div class="form-group">
+                            <label for="tipo_ruta">Tipo de Ruta</label>
+                            <select class="form-control @error('tipo_ruta') is-invalid @enderror" id="tipo_ruta" name="tipo_ruta" required>
+                                <option value="" disabled selected>Selecciona un tipo de ruta</option>
+                                <option value="Terrestre" {{ old('tipo_ruta') == 'Terrestre' ? 'selected' : '' }}>Terrestre</option>
+                                <option value="Acuática" {{ old('tipo_ruta') == 'Acuática' ? 'selected' : '' }}>Acuática</option>
+                                <option value="Aérea" {{ old('tipo_ruta') == 'Aérea' ? 'selected' : '' }}>Aérea</option>
+                            </select>
+                            @error('tipo_ruta')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                        
+                        {{-- Campo para el Estado de Ruta --}}
+                        <div class="form-group">
+                            <label for="estado_ruta">Estado de Ruta</label>
+                            <select class="form-control @error('estado_ruta') is-invalid @enderror" id="estado_ruta" name="estado_ruta" required>
+                                <option value="" disabled selected>Selecciona el estado</option>
+                                <option value="Abierta" {{ old('estado_ruta') == 'Abierta' ? 'selected' : '' }}>Abierta</option>
+                                <option value="Cerrada" {{ old('estado_ruta') == 'Cerrada' ? 'selected' : '' }}>Cerrada</option>
+                            </select>
+                            @error('estado_ruta')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+
+                        {{-- Campo para las Recomendaciones --}}
+                        <div class="form-group">
+                            <label for="recomendaciones">Recomendaciones</label>
+                            <textarea class="form-control @error('recomendaciones') is-invalid @enderror" id="recomendaciones" name="recomendaciones" rows="3" required>{{ old('recomendaciones') }}</textarea>
+                            @error('recomendaciones')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer text-right">
+                        <a href="{{ route('acceso.pantalla') }}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Acceso</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-@endsection
+@stop
