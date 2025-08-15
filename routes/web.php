@@ -464,3 +464,9 @@ Route::delete('usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usu
     Route::post('/telefonos/store', [TelefonoController::class, 'store'])->name('telefonos.store');
     Route::put('/telefonos/{cod_telefono}/actualizar', [TelefonoController::class, 'update'])->name('telefonos.update');
     Route::delete('/telefonos/{cod_telefono}/destroy', [TelefonoController::class, 'destroy'])->name('telefonos.destroy');
+
+
+// módulo personas
+Route::get('/personas', [PersonaController::class, 'index'])->name('personas.index');
+Route::post('/personas/guardar', [PersonaController::class, 'store'])->name('personas.store');
+Route::put('/personas/{cod_persona}/actualizar', [PersonaController::class, 'update'])->name('personas.update');

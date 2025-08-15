@@ -169,4 +169,16 @@
         </div>
     </div>
 </div>
+
+
+ <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-header">Personas</div>
+            <div class="card-body">
+                <i class="fas fa-user fa-3x mb-3"></i>
+                <p>Gestión de información de las personas.</p>
+                <a href="{{ route('personas.index') }}" class="btn btn-primary">Abrir</a>
+            </div>
+       </div>
+    </div>
 @stop
